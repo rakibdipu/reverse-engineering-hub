@@ -1,15 +1,74 @@
-# 📷 Project 05: LightCraft — Adobe Lightroom বিকল্প\n\n> **Rust-এ লেখা ওপেন-সোর্স RAW Photo Processor**\n
+# 📷 Project 05: LightCraft — Open-Source Lightroom Alternative
+
+> **Non-Destructive RAW Photo Processor with Adobe Lightroom Catalog (.lrcat) SQLite Parser**
+
+[![Rust](https://img.shields.io/badge/Language-Rust-orange.svg)]()
+[![Inspiration](https://img.shields.io/badge/Inspired%20By-storytold%2Flightcraft-blue.svg)](https://github.com/storytold/lightcraft)
+
 ---
 
 ## 👤 Upstream Creator & Attribution
-* **Original Author / Inspiration:** [@storytold (LightCraft)](https://github.com/storytold/lightcraft)
+* **Original Author / Inspiration:** [@storytold](https://github.com/storytold/lightcraft)
 * **Upstream Repository:** [https://github.com/storytold/lightcraft](https://github.com/storytold/lightcraft)
-* **Credit & License:** All original architectural concepts belong to @storytold (LightCraft). This repository provides an upgraded, documented, and runnable standalone implementation.
+* **Credit & License:** All original architectural concepts belong to @storytold. This repository provides an upgraded, documented, and runnable standalone implementation.
 
 ---
 
 ## 🚀 How We Made It Better / Merged Innovations
-- Includes complete runnable egui UI entrypoint with Develop adjustments panel (Exposure, Temp, Highlights, Shadows).\n- Reverse-engineered Adobe Lightroom Catalog (.lrcat) SQLite database schema reader.\n- Color temperature algorithm converting Kelvin and Tint values into RGB multipliers.
+- Includes complete runnable `egui` desktop UI entrypoint with Develop adjustments panel (Exposure, Temp, Highlights, Shadows).
+- Reverse-engineered Adobe Lightroom Catalog (`.lrcat`) SQLite database schema reader.
+- Color temperature algorithm converting Kelvin and Tint values into RGB multipliers.
+- Complete `Cargo.toml` with release optimization profiles.
 
 ---
-\n\n[![Reference](https://img.shields.io/badge/Inspired%20By-storytold%2Flightcraft-blue)](https://github.com/storytold/lightcraft)\n\n---\n\n## 📖 কী এটা?\n\n**LightCraft** হলো Adobe Lightroom-এর একটি বিকল্প, বিশেষত:\n- **RAW ফাইল** প্রসেসিং (Canon CR2, Nikon NEF, Sony ARW ইত্যাদি)\n- **Lightroom Catalog (.lrcat)** ফরম্যাট রিড করে\n- Non-destructive photo editing\n- AI-powered photo enhancement\n\n---\n\n## 🔬 Lightroom Catalog Format — RE Analysis\n\nLightroom-এর `.lrcat` ফাইল আসলে একটি **SQLite database**!\n\n```bash\n# LRCAT ফাইল কী সেটা দেখুন\nfile Lightroom\ Catalog.lrcat\n# Output: Lightroom Catalog.lrcat: SQLite 3.x database\n\n# SQLite দিয়ে খুলুন\nsqlite3 "Lightroom Catalog.lrcat"\n\n# Tables দেখুন\n.tables\n```\n\n### LRCAT Database Schema (RE করা)\n\n```sql\n-- প্রধান tables যা Ghidra + SQLite browser দিয়ে বের করা হয়েছে\n\n-- ছবির মেটাডেটা\nCREATE TABLE Adobe_images (\n    id_local    INTEGER PRIMARY KEY,\n    id_global   VARCHAR(36),     -- UUID\n    rootFile    INTEGER,         -- file reference\n    captureTime VARCHAR(25),     -- "2024-01-15T10:30:00"\n    rating      INTEGER,         -- 0-5 stars\n    colorLabels VARCHAR(10),     -- "red", "green" etc.\n    pick        INTEGER          -- flagged: 1, rejected: -1\n);\n\n-- এডিট সেটিংস (Non-destructive adjustments)\nCREATE TABLE Adobe_libraryImageDevelopSettings (\n    image           INTEGER REFERENCES Adobe_images(id_local),\n    developPreset   TEXT,        -- JSON encoded settings!\n    -- সেটিংস JSON ফরম্যাটে থাকে\n    hasDevelopAdjustments INTEGER\n);\n\n-- Keywords/Tags\nCREATE TABLE AgLibraryKeyword (\n    id_local    INTEGER PRIMARY KEY,\n    lc_name     VARCHAR,         -- keyword নাম (lowercase)\n    name        VARCHAR          -- keyword নাম\n);\n\n-- Collection (Albums)\nCREATE TABLE AgLibraryCollection (\n    id_local    INTEGER PRIMARY KEY,\n    name        VARCHAR,\n    creationId  VARCHAR(36)\n);\n\n-- ফাইলের physical পাথ\nCREATE TABLE AgLibraryRootFolder (\n    id_local    INTEGER PRIMARY KEY,\n    absolutePath VARCHAR           -- ফোল্ডারের path\n);\n```\n\n### Develop Settings JSON (RE করা)\n\n```json\n{\n  "Exposure": 0.5,\n  "Contrast": 10,\n  "Highlights": -30,\n  "Shadows": 20,\n  "Whites": 5,\n  "Blacks": -10,\n  "Clarity": 15,\n  "Vibrance": 20,\n  "Saturation": 5,\n  "Temperature": 5500,\n  "Tint": -5,\n  "ToneCurve": {\n    "ParametricHighlights": 25,\n    "ParametricLights": 10,\n    "ParametricDarks": -10,\n    "ParametricShadows": -25\n  },\n  "HueAdjustmentRed": 0,\n  "SaturationAdjustmentRed": 20,\n  "LuminanceAdjustmentRed": 10,\n  "GrainAmount": 20,\n  "GrainSize": 25,\n  "VignetteAmount": -20\n}\n```\n\n---\n\n## 🦀 Rust Implementation\n\n```rust\n// src/catalog/lrcat.rs — Lightroom Catalog Reader\n\nuse rusqlite::{Connection, Result};\n\n/// Lightroom ছবির তথ্য\n#[derive(Debug, Clone)]\npub struct LightroomImage {\n    pub id: i64,\n    pub uuid: String,\n    pub capture_time: Option<String>,\n    pub rating: i32,\n    pub pick: i32,\n    pub file_path: Option<String>,\n    pub develop_settings: Option<DevelopSettings>,\n}\n\n/// Photo adjustment settings\n#[derive(Debug, Clone, serde::Deserialize)]\npub struct DevelopSettings {\n    #[serde(rename = "Exposure")]\n    pub exposure: f32,           // -5.0 to +5.0\n\n    #[serde(rename = "Contrast")]\n    pub contrast: f32,           // -100 to +100\n\n    #[serde(rename = "Highlights")]\n    pub highlights: f32,\n\n    #[serde(rename = "Shadows")]\n    pub shadows: f32,\n\n    #[serde(rename = "Temperature")]\n    pub temperature: Option<i32>, // 2000K - 50000K (Kelvin)\n\n    #[serde(rename = "Tint")]\n    pub tint: Option<i32>,       // -150 to +150\n\n    #[serde(rename = "Saturation")]\n    pub saturation: Option<f32>,\n\n    #[serde(rename = "Clarity")]\n    pub clarity: Option<f32>,\n}\n\nimpl Default for DevelopSettings {\n    fn default() -> Self {\n        Self {\n            exposure: 0.0,\n            contrast: 0.0,\n            highlights: 0.0,\n            shadows: 0.0,\n            temperature: Some(5500),\n            tint: Some(0),\n            saturation: Some(0.0),\n            clarity: Some(0.0),\n        }\n    }\n}\n\n/// Lightroom Catalog reader\npub struct LrcatReader {\n    conn: Connection,\n}\n\nimpl LrcatReader {\n    /// LRCAT ফাইল খুলো\n    pub fn open(path: &str) -> Result<Self> {\n        let conn = Connection::open(path)?;\n        Ok(Self { conn })\n    }\n\n    /// সব ছবির তালিকা আনো\n    pub fn get_all_images(&self) -> Result<Vec<LightroomImage>> {\n        let mut stmt = self.conn.prepare(\n            "SELECT i.id_local, i.id_global, i.captureTime, i.rating, i.pick\n             FROM Adobe_images i\n             ORDER BY i.captureTime DESC\n             LIMIT 1000"\n        )?;\n\n        let images = stmt.query_map([], |row| {\n            Ok(LightroomImage {\n                id: row.get(0)?,\n                uuid: row.get(1).unwrap_or_default(),\n                capture_time: row.get(2)?,\n                rating: row.get(3).unwrap_or(0),\n                pick: row.get(4).unwrap_or(0),\n                file_path: None,\n                develop_settings: None,\n            })\n        })?\n        .filter_map(|r| r.ok())\n        .collect();\n\n        Ok(images)\n    }\n\n    /// একটি ছবির develop settings আনো\n    pub fn get_develop_settings(&self, image_id: i64) -> Option<DevelopSettings> {\n        let result: rusqlite::Result<String> = self.conn.query_row(\n            "SELECT developPreset FROM Adobe_libraryImageDevelopSettings WHERE image = ?1",\n            [image_id],\n            |row| row.get(0),\n        );\n\n        result.ok()\n            .and_then(|json| serde_json::from_str(&json).ok())\n    }\n\n    /// ছবি export করো (settings apply করে)\n    pub fn export_image(&self, image: &LightroomImage, output_path: &str) -> Result<(), String> {\n        let settings = image.develop_settings.clone().unwrap_or_default();\n        // TODO: RAW processing + settings apply\n        Ok(())\n    }\n}\n```\n\n### RAW Image Processing Pipeline\n\n```rust\n// src/raw/processor.rs — RAW ফাইল প্রসেসিং\n\n/// RAW processing steps (Lightroom যেভাবে করে RE করা হয়েছে)\npub struct RawProcessor {\n    settings: DevelopSettings,\n}\n\nimpl RawProcessor {\n    /// RAW → RGBA pixel array তৈরি করো\n    pub fn process(&self, raw_data: &[u8]) -> Vec<u8> {\n        // ধাপ ১: Demosaic (Bayer pattern → RGB)\n        let mut pixels = self.demosaic(raw_data);\n\n        // ধাপ ২: White Balance (Temperature + Tint)\n        self.apply_white_balance(&mut pixels);\n\n        // ধাপ ৩: Exposure\n        self.apply_exposure(&mut pixels);\n\n        // ধাপ ৪: Tone Curve\n        self.apply_tone_curve(&mut pixels);\n\n        // ধাপ ৫: HSL (Hue, Saturation, Luminance)\n        self.apply_hsl(&mut pixels);\n\n        // ধাপ ৬: Sharpening + Noise Reduction\n        self.apply_sharpening(&mut pixels);\n\n        pixels\n    }\n\n    fn apply_exposure(&self, pixels: &mut Vec<u8>) {\n        let factor = 2f32.powf(self.settings.exposure);\n        for pixel in pixels.chunks_mut(4) {\n            pixel[0] = ((pixel[0] as f32 * factor).min(255.0)) as u8;\n            pixel[1] = ((pixel[1] as f32 * factor).min(255.0)) as u8;\n            pixel[2] = ((pixel[2] as f32 * factor).min(255.0)) as u8;\n        }\n    }\n\n    fn apply_white_balance(&self, pixels: &mut Vec<u8>) {\n        let temp = self.settings.temperature.unwrap_or(5500) as f32;\n        let tint = self.settings.tint.unwrap_or(0) as f32;\n\n        // Kelvin থেকে RGB multiplier বের করো\n        let (r_mult, g_mult, b_mult) = kelvin_to_rgb_multiplier(temp, tint);\n\n        for pixel in pixels.chunks_mut(4) {\n            pixel[0] = ((pixel[0] as f32 * r_mult).min(255.0)) as u8;\n            pixel[1] = ((pixel[1] as f32 * g_mult).min(255.0)) as u8;\n            pixel[2] = ((pixel[2] as f32 * b_mult).min(255.0)) as u8;\n        }\n    }\n\n    fn demosaic(&self, _raw: &[u8]) -> Vec<u8> {\n        // Simplified — real implementation uses libraw\n        vec![]\n    }\n\n    fn apply_tone_curve(&self, _pixels: &mut Vec<u8>) {}\n    fn apply_hsl(&self, _pixels: &mut Vec<u8>) {}\n    fn apply_sharpening(&self, _pixels: &mut Vec<u8>) {}\n}\n\nfn kelvin_to_rgb_multiplier(temp: f32, tint: f32) -> (f32, f32, f32) {\n    // সরলীকৃত Color Temperature অ্যালগরিদম\n    let r = if temp <= 6600.0 { 1.0 } else { (temp / 6600.0 - 1.0).powf(-0.1332) * 1.292 };\n    let b = if temp >= 6600.0 { 1.0 } else { ((temp - 1900.0) / 900.0).ln() * 0.543 };\n    let g = 1.0 + tint / 1000.0;\n    (r.min(1.0), g.min(1.0), b.min(1.0))\n}\n```\n\n---\n\n## 📁 প্রজেক্ট স্ট্রাকচার\n\n```\n05-lightroom-alternative/\n├── Cargo.toml\n├── src/\n│   ├── main.rs\n│   ├── catalog/\n│   │   └── lrcat.rs       # Lightroom catalog reader\n│   ├── raw/\n│   │   ├── processor.rs   # RAW processing\n│   │   └── libraw.rs      # libraw FFI bindings\n│   ├── adjustments/\n│   │   ├── exposure.rs\n│   │   ├── color.rs\n│   │   └── tone_curve.rs\n│   └── ui/\n│       ├── library.rs     # Photo library view\n│       └── develop.rs     # Develop/Edit panel\n```\n\n---\n\n## 📚 রিসোর্স\n\n- [libraw (C++ RAW library)](https://github.com/LibRaw/LibRaw)\n- [darktable Source (Reference NLE)](https://github.com/darktable-org/darktable)\n- [storytold/lightcraft Reference](https://github.com/storytold/lightcraft)\n- [Adobe DNG Specification](https://helpx.adobe.com/photoshop/using/adobe-dng-converter.html)
+
+## 🔬 Lightroom Catalog (.lrcat) Reverse Engineering
+
+Adobe Lightroom catalogs (`.lrcat`) are SQLite 3 databases storing image metadata and non-destructive JSON adjustment presets.
+
+```sql
+-- Core Lightroom Catalog Schema:
+CREATE TABLE Adobe_images (
+    id_local    INTEGER PRIMARY KEY,
+    id_global   VARCHAR(36),
+    captureTime VARCHAR(25),
+    rating      INTEGER,
+    pick        INTEGER
+);
+
+CREATE TABLE Adobe_libraryImageDevelopSettings (
+    image           INTEGER REFERENCES Adobe_images(id_local),
+    developPreset   TEXT,  -- JSON-encoded adjustments!
+    hasDevelopAdjustments INTEGER
+);
+```
+
+### Color Temperature to RGB Conversion Algorithm
+
+```rust
+pub fn kelvin_to_rgb_multiplier(temp_kelvin: f32, tint: f32) -> (f32, f32, f32) {
+    let r = if temp_kelvin <= 6600.0 {
+        1.0
+    } else {
+        (temp_kelvin / 6600.0 - 1.0).powf(-0.1332) * 1.292
+    };
+
+    let b = if temp_kelvin >= 6600.0 {
+        1.0
+    } else {
+        ((temp_kelvin - 1900.0) / 900.0).ln() * 0.543
+    };
+
+    let g = 1.0 + (tint / 1000.0);
+    (r.clamp(0.0, 1.0), g.clamp(0.0, 1.0), b.clamp(0.0, 1.0))
+}
+```
+
+---
+
+## 🚀 Building & Running
+
+```bash
+cargo build --release
+cargo run --release
+```

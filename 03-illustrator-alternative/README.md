@@ -1,15 +1,79 @@
-# ✏️ Project 03: VectorCraft — Adobe Illustrator বিকল্প\n\n> **Rust-এ লেখা ওপেন-সোর্স Vector Graphics Editor**\n
+# ✏️ Project 03: VectorCraft — Open-Source Illustrator Alternative
+
+> **Pure Rust + egui Vector Graphics Editor with Bezier Math & SVG/AI File Support**
+
+[![Rust](https://img.shields.io/badge/Language-Rust-orange.svg)]()
+[![Inspiration](https://img.shields.io/badge/Inspired%20By-storytold%2Fvectorcraft-blue.svg)](https://github.com/storytold/vectorcraft)
+
 ---
 
 ## 👤 Upstream Creator & Attribution
-* **Original Author / Inspiration:** [@storytold (VectorCraft)](https://github.com/storytold/vectorcraft)
+* **Original Author / Inspiration:** [@storytold](https://github.com/storytold/vectorcraft)
 * **Upstream Repository:** [https://github.com/storytold/vectorcraft](https://github.com/storytold/vectorcraft)
-* **Credit & License:** All original architectural concepts belong to @storytold (VectorCraft). This repository provides an upgraded, documented, and runnable standalone implementation.
+* **Credit & License:** All original architectural concepts belong to @storytold. This repository provides an upgraded, documented, and runnable standalone implementation.
 
 ---
 
 ## 🚀 How We Made It Better / Merged Innovations
-- Includes complete runnable egui UI entrypoint with vector pen tools, stroke/fill controls, and canvas.\n- De Casteljau cubic Bezier curve engine with subdivision flattening and tangent calculation.\n- SVG path data parser (M, L, C, Z commands) and PostScript Adobe Illustrator format analysis.
+- Includes complete runnable `egui` desktop UI entrypoint with vector pen tools, stroke/fill controls, and canvas.
+- De Casteljau cubic Bezier curve engine with subdivision flattening and tangent calculation.
+- SVG path data parser (M, L, C, Z commands) and PostScript Adobe Illustrator format analysis.
+- Complete `Cargo.toml` with release optimization profiles.
 
 ---
-\n\n[![Rust](https://img.shields.io/badge/Language-Rust-orange)]()\n[![Reference](https://img.shields.io/badge/Inspired%20By-storytold%2Fvectorcraft-blue)](https://github.com/storytold/vectorcraft)\n\n---\n\n## 📖 কী এটা?\n\n**VectorCraft** হলো Adobe Illustrator-এর একটি ওপেন-সোর্স বিকল্প, যা:\n- **SVG**, **AI**, **EPS** ফাইল ফরম্যাট সাপোর্ট করে\n- বেজিয়ার কার্ভ, পথ সম্পাদনা, ভেক্টর আঁকা\n- **Adobe AI ফরম্যাট** রিভার্স ইঞ্জিনিয়ারিং করে পড়তে পারে\n\n---\n\n## 🔬 Adobe AI Format — Reverse Engineering\n\nAdobe Illustrator (.ai) ফাইল মূলত **PostScript** ভিত্তিক এবং একটি **PDF wrapper** ব্যবহার করে।\n\n### AI File Structure (RE Analysis)\n\n```\nAdobe Illustrator File:\n┌─────────────────────────────────────┐\n│ PDF Header (%PDF-1.x)              │\n│ AI Header (%!PS-Adobe-3.0)         │\n├─────────────────────────────────────┤\n│ AI Preamble                         │\n│   Creator, Creation Date            │\n│   Document Setup                    │\n├─────────────────────────────────────┤\n│ AI Document Data (PostScript)       │\n│   %%BeginDocument                   │\n│   Vector paths (Bezier curves)      │\n│   Colors (CMYK/RGB/Spot)           │\n│   Text objects                      │\n│   Gradients                         │\n│   %%EndDocument                     │\n├─────────────────────────────────────┤\n│ PDF XRef Table                      │\n│ PDF Trailer                         │\n└─────────────────────────────────────┘\n```\n\n### PostScript Path Commands (AI-তে যেভাবে ব্যবহার হয়)\n\n```postscript\n% AI Path Example (Reverse Engineered)\n% moveto, lineto, curveto = Bezier curves\n\n100 200 moveto          % শুরু বিন্দু\n300 200 lineto          % সরলরেখা\n400 400 curveto         % বেজিয়ার কার্ভ (simplified)\n100 200 lineto          % ফিরে আসা\nclosepath               % পথ বন্ধ\nstroke                  % রেখা আঁকো\n```\n\n---\n\n## 🦀 Rust Implementation\n\n```rust\n// src/geometry/bezier.rs — Bezier Curve Engine\n\n/// কিউবিক বেজিয়ার কার্ভ\n#[derive(Debug, Clone, Copy)]\npub struct CubicBezier {\n    pub p0: Vec2,  // শুরু বিন্দু\n    pub p1: Vec2,  // Control point 1\n    pub p2: Vec2,  // Control point 2\n    pub p3: Vec2,  // শেষ বিন্দু\n}\n\nimpl CubicBezier {\n    /// t (0.0 থেকে 1.0) সময়ে কার্ভের বিন্দু বের করো\n    pub fn point_at(&self, t: f32) -> Vec2 {\n        let u = 1.0 - t;\n        // De Casteljau's algorithm\n        self.p0 * (u * u * u)\n          + self.p1 * (3.0 * u * u * t)\n          + self.p2 * (3.0 * u * t * t)\n          + self.p3 * (t * t * t)\n    }\n\n    /// কার্ভের tangent (দিক) বের করো\n    pub fn tangent_at(&self, t: f32) -> Vec2 {\n        let u = 1.0 - t;\n        (self.p1 - self.p0) * (3.0 * u * u)\n          + (self.p2 - self.p1) * (6.0 * u * t)\n          + (self.p3 - self.p2) * (3.0 * t * t)\n    }\n\n    /// কার্ভকে সমতল রেখায় ভাগ করো (rendering এর জন্য)\n    pub fn flatten(&self, tolerance: f32) -> Vec<Vec2> {\n        let mut points = vec![self.p0];\n        self.flatten_recursive(&mut points, tolerance, 0);\n        points.push(self.p3);\n        points\n    }\n\n    fn flatten_recursive(&self, points: &mut Vec<Vec2>, tolerance: f32, depth: u32) {\n        if depth > 8 { return; }\n\n        // চেক করো কার্ভ যথেষ্ট সমতল কিনা\n        let midpoint = self.point_at(0.5);\n        let chord_mid = (self.p0 + self.p3) * 0.5;\n        let error = (midpoint - chord_mid).length();\n\n        if error <= tolerance {\n            points.push(midpoint);\n        } else {\n            // দুই ভাগে ভাগ করো (subdivision)\n            let (left, right) = self.split(0.5);\n            left.flatten_recursive(points, tolerance, depth + 1);\n            right.flatten_recursive(points, tolerance, depth + 1);\n        }\n    }\n\n    /// কার্ভকে দুই ভাগে ভাগ করো\n    pub fn split(&self, t: f32) -> (CubicBezier, CubicBezier) {\n        let q0 = self.p0.lerp(self.p1, t);\n        let q1 = self.p1.lerp(self.p2, t);\n        let q2 = self.p2.lerp(self.p3, t);\n        let r0 = q0.lerp(q1, t);\n        let r1 = q1.lerp(q2, t);\n        let s = r0.lerp(r1, t);\n\n        (\n            CubicBezier { p0: self.p0, p1: q0, p2: r0, p3: s },\n            CubicBezier { p0: s, p1: r1, p2: q2, p3: self.p3 },\n        )\n    }\n}\n\n/// 2D Vector\n#[derive(Debug, Clone, Copy, PartialEq)]\npub struct Vec2 {\n    pub x: f32,\n    pub y: f32,\n}\n\nimpl Vec2 {\n    pub fn new(x: f32, y: f32) -> Self { Self { x, y } }\n    pub fn length(&self) -> f32 { (self.x*self.x + self.y*self.y).sqrt() }\n    pub fn lerp(&self, other: Vec2, t: f32) -> Vec2 {\n        Vec2::new(\n            self.x + (other.x - self.x) * t,\n            self.y + (other.y - self.y) * t,\n        )\n    }\n}\n\nimpl std::ops::Add for Vec2 {\n    type Output = Vec2;\n    fn add(self, rhs: Vec2) -> Vec2 { Vec2::new(self.x + rhs.x, self.y + rhs.y) }\n}\n\nimpl std::ops::Sub for Vec2 {\n    type Output = Vec2;\n    fn sub(self, rhs: Vec2) -> Vec2 { Vec2::new(self.x - rhs.x, self.y - rhs.y) }\n}\n\nimpl std::ops::Mul<f32> for Vec2 {\n    type Output = Vec2;\n    fn mul(self, rhs: f32) -> Vec2 { Vec2::new(self.x * rhs, self.y * rhs) }\n}\n```\n\n### SVG Parser\n\n```rust\n// src/formats/svg.rs — SVG ফাইল পার্সার\n\nuse std::collections::HashMap;\n\n/// SVG Path ডেটা পার্স করো\npub fn parse_path_data(d: &str) -> Vec<PathCommand> {\n    let mut commands = Vec::new();\n    let mut chars = d.chars().peekable();\n    let mut current_cmd = ' ';\n\n    while let Some(&ch) = chars.peek() {\n        match ch {\n            'M' | 'm' => {\n                chars.next();\n                current_cmd = ch;\n                let (x, y) = parse_coordinate_pair(&mut chars);\n                commands.push(PathCommand::MoveTo { x, y, relative: ch.is_lowercase() });\n            }\n            'L' | 'l' => {\n                chars.next();\n                current_cmd = ch;\n                let (x, y) = parse_coordinate_pair(&mut chars);\n                commands.push(PathCommand::LineTo { x, y, relative: ch.is_lowercase() });\n            }\n            'C' | 'c' => {\n                chars.next();\n                current_cmd = ch;\n                let (x1, y1) = parse_coordinate_pair(&mut chars);\n                let (x2, y2) = parse_coordinate_pair(&mut chars);\n                let (x, y) = parse_coordinate_pair(&mut chars);\n                commands.push(PathCommand::CubicBezierTo {\n                    x1, y1, x2, y2, x, y,\n                    relative: ch.is_lowercase()\n                });\n            }\n            'Z' | 'z' => {\n                chars.next();\n                commands.push(PathCommand::ClosePath);\n            }\n            ' ' | ',' | '\n' | '\t' => { chars.next(); }\n            _ => { chars.next(); }\n        }\n    }\n\n    commands\n}\n\n#[derive(Debug, Clone)]\npub enum PathCommand {\n    MoveTo { x: f32, y: f32, relative: bool },\n    LineTo { x: f32, y: f32, relative: bool },\n    CubicBezierTo { x1: f32, y1: f32, x2: f32, y2: f32, x: f32, y: f32, relative: bool },\n    ClosePath,\n}\n\nfn parse_coordinate_pair(chars: &mut std::iter::Peekable<std::str::Chars>) -> (f32, f32) {\n    // whitespace skip\n    while chars.peek() == Some(&' ') || chars.peek() == Some(&',') {\n        chars.next();\n    }\n    let x = parse_number(chars);\n    while chars.peek() == Some(&' ') || chars.peek() == Some(&',') {\n        chars.next();\n    }\n    let y = parse_number(chars);\n    (x, y)\n}\n\nfn parse_number(chars: &mut std::iter::Peekable<std::str::Chars>) -> f32 {\n    let mut num_str = String::new();\n    while let Some(&c) = chars.peek() {\n        if c.is_ascii_digit() || c == '.' || c == '-' || c == '+' {\n            num_str.push(c);\n            chars.next();\n        } else {\n            break;\n        }\n    }\n    num_str.parse().unwrap_or(0.0)\n}\n```\n\n---\n\n## 📁 প্রজেক্ট স্ট্রাকচার\n\n```\n03-illustrator-alternative/\n├── Cargo.toml\n├── src/\n│   ├── main.rs\n│   ├── geometry/\n│   │   ├── bezier.rs       # Bezier curve math\n│   │   ├── path.rs         # Path operations\n│   │   └── boolean.rs      # Boolean operations (union, intersect)\n│   ├── formats/\n│   │   ├── svg.rs          # SVG read/write\n│   │   ├── ai.rs           # Adobe AI reader (RE)\n│   │   └── eps.rs          # EPS PostScript reader\n│   ├── tools/\n│   │   ├── pen.rs          # Pen tool\n│   │   ├── selection.rs    # Selection tool\n│   │   └── text.rs         # Type tool\n│   └── ui/\n│       └── canvas.rs       # Vector canvas\n```\n\n---\n\n## 📚 রিসোর্স\n\n- [SVG Specification (W3C)](https://www.w3.org/TR/SVG/)\n- [Adobe PostScript Reference](https://www.adobe.com/products/postscript/pdfs/PLRM.pdf)\n- [storytold/vectorcraft Reference](https://github.com/storytold/vectorcraft)\n- [Inkscape Source Code](https://gitlab.com/inkscape/inkscape) — আরেকটি ভালো RE রেফারেন্স
+
+## 🔬 Adobe Illustrator AI & SVG Format Analysis
+
+Adobe Illustrator (`.ai`) files historically wrap PostScript within a PDF container. VectorCraft reverse engineers these vector commands to construct native paths.
+
+### Cubic Bezier Curve Math (De Casteljau's Algorithm)
+
+```rust
+#[derive(Debug, Clone, Copy)]
+pub struct CubicBezier {
+    pub p0: Vec2,  // Start point
+    pub p1: Vec2,  // Control point 1
+    pub p2: Vec2,  // Control point 2
+    pub p3: Vec2,  // End point
+}
+
+impl CubicBezier {
+    pub fn point_at(&self, t: f32) -> Vec2 {
+        let u = 1.0 - t;
+        self.p0 * (u * u * u)
+          + self.p1 * (3.0 * u * u * t)
+          + self.p2 * (3.0 * u * t * t)
+          + self.p3 * (t * t * t)
+    }
+
+    pub fn tangent_at(&self, t: f32) -> Vec2 {
+        let u = 1.0 - t;
+        (self.p1 - self.p0) * (3.0 * u * u)
+          + (self.p2 - self.p1) * (6.0 * u * t)
+          + (self.p3 - self.p2) * (3.0 * t * t)
+    }
+
+    pub fn split(&self, t: f32) -> (CubicBezier, CubicBezier) {
+        let q0 = self.p0.lerp(self.p1, t);
+        let q1 = self.p1.lerp(self.p2, t);
+        let q2 = self.p2.lerp(self.p3, t);
+        let r0 = q0.lerp(q1, t);
+        let r1 = q1.lerp(q2, t);
+        let s = r0.lerp(r1, t);
+
+        (
+            CubicBezier { p0: self.p0, p1: q0, p2: r0, p3: s },
+            CubicBezier { p0: s, p1: r1, p2: q2, p3: self.p3 },
+        )
+    }
+}
+```
+
+---
+
+## 🚀 Building & Running
+
+```bash
+cargo build --release
+cargo run --release
+```

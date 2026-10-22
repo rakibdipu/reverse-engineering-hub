@@ -1,36 +1,28 @@
-# 📺 OmniStream TV — The Ultimate Smart TV & Media Center
+# 📺 Project 08: OmniStream TV — The Ultimate Smart TV & Media Center
 
-> **Unified Innovation Merging Multiple Groundbreaking Upstream Repositories**
+> **Unified Media Center Merging SmartTube, MediaServiceCore, LeanKeyboard & PlexTraktSync**
 
 ---
 
 ## 👤 Original Creators & Upstream Attribution
 This mega-project stands on the shoulders of giants. We express our deepest respect and gratitude to the primary creators:
-* @yuliskov (SmartTube, MediaServiceCore, LeanKeyboard)\n* @stevietv (PlexTraktSync, Sonarr, Radarr)
+* **[@yuliskov](https://github.com/yuliskov)** (SmartTube, MediaServiceCore, LeanKeyboard)
+* **[@stevietv](https://github.com/stevietv)** (PlexTraktSync, Sonarr, Radarr)
 
 All foundational reverse engineering, API extraction, and protocols originated from their respective upstream repositories.
 
 ---
 
 ## 🚀 Why This Merged Version Is Better
-- **Unified Interface**: Combines online streaming (YouTube) and local media (Plex/Jellyfin) into one seamless Leanback TV interface.\n- **Ad-Free & SponsorBlock**: Zero ads and automatic skipping of sponsored segments built into the player engine.\n- **Automatic Trakt.tv Sync**: Whether watching local media or streaming online, your watch history and progress are kept in sync automatically.\n- **D-Pad Virtual Keyboard**: LeanKeyboard integration ensures rapid typing using ordinary TV remotes without a physical keyboard.
+- **Unified Interface:** Combines ad-free online streaming (YouTube 4K AV1 with SponsorBlock) and personal local media (Plex / Jellyfin) into a single Leanback TV interface.
+- **Automated Trakt.tv Sync:** Seamlessly scrobbles playback progress and history to Trakt.tv whether watching personal media or online streams.
+- **D-Pad Virtual Keyboard:** Embedded LeanKeyboard on-screen engine enables rapid directional remote typing without physical peripherals.
+- **Headless & Cross-Platform:** Core streaming extraction is decoupled into a standalone Python runtime (`omnistream_core.py`) executable on Linux, Windows, macOS, or NAS servers.
 
 ---
-# 📺 Project 08: OmniStream TV
 
-> **Merged Project: SmartTube + MediaServiceCore + LeanKeyboard + PlexTraktSync + Sonarr/Radarr**
+## 🏗️ Architecture
 
-## 📖 প্রজেক্ট ওভারভিউ
-OmniStream TV হলো একটি অল-ইন-ওয়ান ওপেন-সোর্স স্মার্ট টিভি ও হোম থিয়েটার মিডিয়া সেন্টার। এটি ইউটিউব ও লোকাল মিডিয়া সার্ভারকে একসাথে যুক্ত করে একটি নিরবচ্ছিন্ন রিমোট-ফ্রেন্ডলি ইন্টারফেস প্রদান করে।
-
-### 🧩 কোন প্রজেক্টগুলো মার্জ করা হয়েছে:
-1. **yuliskov/SmartTube**: 4K HDR প্লেয়ার ইঞ্জিন, স্পন্সরব্লক ও নো-অ্যাড আর্কিটেকচার।
-2. **yuliskov/MediaServiceCore**: আনঅফিসিয়াল InnerTube API এক্সট্র্যাক্টর।
-3. **yuliskov/LeanKeyboard**: রিমোটের D-pad দিয়ে দ্রুত টাইপিংয়ের জন্য কাস্টম অন-স্ক্রিন কিবোর্ড।
-4. **stevietv/PlexTraktSync**: রিয়েল-টাইম ওয়াচ হিস্ট্রি ও ট্র্যাকিং Trakt.tv-এর সাথে সিঙ্ক।
-5. **stevietv/Sonarr & Radarr**: সরাসরি টিভি থেকে নতুন মুভি/সিরিজ রিকোয়েস্ট অটোমেশন।
-
-## 🏗️ আর্কিটেকচার
 ```
        ┌────────────────────────────────────────────────────────┐
        │                   OmniStream TV UI                     │
@@ -52,8 +44,11 @@ OmniStream TV হলো একটি অল-ইন-ওয়ান ওপেন-
 └──────────────────┘                                └──────────────────┘
 ```
 
-## 🚀 দ্রুত শুরু করুন
+---
+
+## 🚀 Quick Start
+
 ```bash
-# OmniStream TV ডেমো লঞ্চার
+# Run the standalone OmniStream TV core engine:
 python3 omnistream_core.py
 ```

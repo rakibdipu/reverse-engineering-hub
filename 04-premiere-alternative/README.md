@@ -1,15 +1,73 @@
-# 🎬 Project 04: FilmCraft — Adobe Premiere Pro বিকল্প\n\n> **Rust + WebGPU দিয়ে তৈরি ওপেন-সোর্স Non-Linear Video Editor (NLE)**\n
+# 🎬 Project 04: FilmCraft — Open-Source Premiere Pro Alternative
+
+> **Non-Linear Video Editor (NLE) with Adobe Premiere PRPROJ Parser & WebGPU Timeline Rendering**
+
+[![Rust](https://img.shields.io/badge/Language-Rust-orange.svg)]()
+[![Inspiration](https://img.shields.io/badge/Inspired%20By-storytold%2Ffilmcraft-blue.svg)](https://github.com/storytold/filmcraft)
+
 ---
 
 ## 👤 Upstream Creator & Attribution
-* **Original Author / Inspiration:** [@storytold (FilmCraft)](https://github.com/storytold/filmcraft)
+* **Original Author / Inspiration:** [@storytold](https://github.com/storytold/filmcraft)
 * **Upstream Repository:** [https://github.com/storytold/filmcraft](https://github.com/storytold/filmcraft)
-* **Credit & License:** All original architectural concepts belong to @storytold (FilmCraft). This repository provides an upgraded, documented, and runnable standalone implementation.
+* **Credit & License:** All original architectural concepts belong to @storytold. This repository provides an upgraded, documented, and runnable standalone implementation.
 
 ---
 
 ## 🚀 How We Made It Better / Merged Innovations
-- Includes complete runnable egui UI entrypoint with timeline tracks (V1, V2, A1, A2), media bin, and preview monitor.\n- Reverse-engineered Adobe Premiere PRPROJ XML structure parser with gzip decompression.\n- Non-linear timeline playback engine with frame-accurate playhead tracking.
+- Includes complete runnable `egui` desktop UI entrypoint with timeline tracks (V1, V2, A1, A2), media bin, and preview monitor.
+- Reverse-engineered Adobe Premiere PRPROJ XML structure parser with automatic gzip decompression.
+- Non-linear timeline playback engine with frame-accurate playhead tracking.
+- Complete `Cargo.toml` with release optimization profiles.
 
 ---
-\n\n[![Reference](https://img.shields.io/badge/Inspired%20By-storytold%2Ffilmcraft-blue)](https://github.com/storytold/filmcraft)\n\n---\n\n## 📖 কী এটা?\n\n**FilmCraft** হলো Adobe Premiere Pro-এর একটি বিকল্প যা:\n- **Adobe Premiere (`.prproj`)** প্রজেক্ট ফাইল রিড করতে পারে\n- **Timeline-based** ভিডিও এডিটিং সাপোর্ট করে\n- **FFmpeg** ব্যবহার করে সব ফরম্যাট সাপোর্ট করে\n- **GPU-accelerated** রেন্ডারিং (WebGPU/wgpu)\n\n---\n\n## 🔬 Adobe Premiere PRPROJ Format — RE Analysis\n\nPremiere Pro-এর `.prproj` ফাইল আসলে একটি **gzipped XML** ফাইল:\n\n```bash\n# PRPROJ ফাইল কী সেটা দেখুন\nfile project.prproj\n# Output: project.prproj: gzip compressed data\n\n# Decompress করুন\ncp project.prproj project.prproj.gz\ngunzip project.prproj.gz\nfile project.prproj\n# Output: project.prproj: XML document, ASCII text\n\n# XML দেখুন\ncat project.prproj | head -50\n```\n\n### PRPROJ XML Structure (RE করা)\n\n```xml\n<?xml version="1.0" encoding="UTF-8"?>\n<PremiereData Version="3">\n  <!-- Project Settings -->\n  <ProjectSettings>\n    <VideoSettings>\n      <FrameRate>\n        <TimeBase>25</TimeBase>  <!-- 25fps -->\n      </FrameRate>\n      <FrameWidth>1920</FrameWidth>\n      <FrameHeight>1080</FrameHeight>\n    </VideoSettings>\n  </ProjectSettings>\n\n  <!-- Media Items (Clips) -->\n  <Media>\n    <ProjectItem ObjectID="1" ClassID="62ad66dd-...">\n      <Name>footage.mp4</Name>\n      <FilePath>C:\Videos\footage.mp4</FilePath>\n      <MediaType>Video</MediaType>\n      <Duration>\n        <TimeBase>25</TimeBase>\n        <Time>250</Time>  <!-- 10 seconds at 25fps -->\n      </Duration>\n    </ProjectItem>\n  </Media>\n\n  <!-- Sequences (Timeline) -->\n  <Sequence ObjectID="5">\n    <Name>Sequence 01</Name>\n    <Duration>...</Duration>\n    <VideoTracks>\n      <Track>\n        <ClipItem>\n          <Link>1</Link>  <!-- Media item reference -->\n          <Start>0</Start>\n          <End>100</End>\n          <InPoint>0</InPoint>\n          <OutPoint>100</OutPoint>\n        </ClipItem>\n      </Track>\n    </VideoTracks>\n    <AudioTracks>\n      <!-- Audio track clips -->\n    </AudioTracks>\n  </Sequence>\n</PremiereData>\n```\n\n---\n\n## 🦀 Rust Implementation\n\n```rust\n// src/formats/prproj.rs — Premiere Pro project reader\n\nuse serde::Deserialize;\n\n/// Premiere Pro প্রজেক্ট ডেটা\n#[derive(Debug, Deserialize)]\n#[serde(rename = "PremiereData")]\npub struct PremiereProject {\n    #[serde(rename = "Version")]\n    pub version: String,\n\n    #[serde(rename = "ProjectSettings")]\n    pub settings: Option<ProjectSettings>,\n\n    #[serde(rename = "Sequence", default)]\n    pub sequences: Vec<Sequence>,\n}\n\n#[derive(Debug, Deserialize)]\npub struct ProjectSettings {\n    #[serde(rename = "VideoSettings")]\n    pub video: VideoSettings,\n}\n\n#[derive(Debug, Deserialize)]\npub struct VideoSettings {\n    #[serde(rename = "FrameWidth")]\n    pub width: u32,\n    #[serde(rename = "FrameHeight")]\n    pub height: u32,\n}\n\n#[derive(Debug, Deserialize)]\npub struct Sequence {\n    #[serde(rename = "Name")]\n    pub name: String,\n    #[serde(rename = "VideoTracks")]\n    pub video_tracks: Option<VideoTracks>,\n}\n\n#[derive(Debug, Deserialize)]\npub struct VideoTracks {\n    #[serde(rename = "Track", default)]\n    pub tracks: Vec<Track>,\n}\n\n#[derive(Debug, Deserialize)]\npub struct Track {\n    #[serde(rename = "ClipItem", default)]\n    pub clips: Vec<ClipItem>,\n}\n\n#[derive(Debug, Deserialize)]\npub struct ClipItem {\n    #[serde(rename = "Name")]\n    pub name: Option<String>,\n    #[serde(rename = "Start")]\n    pub start: i64,\n    #[serde(rename = "End")]\n    pub end: i64,\n}\n\n/// PRPROJ ফাইল লোড করো\npub fn load_prproj(path: &str) -> Result<PremiereProject, Box<dyn std::error::Error>> {\n    use std::io::Read;\n    use flate2::read::GzDecoder;\n\n    // gzip decompress\n    let file = std::fs::File::open(path)?;\n    let mut decoder = GzDecoder::new(file);\n    let mut xml = String::new();\n    decoder.read_to_string(&mut xml)?;\n\n    // XML parse\n    let project: PremiereProject = quick_xml::de::from_str(&xml)?;\n    Ok(project)\n}\n```\n\n---\n\n## 🎬 Timeline Engine\n\n```rust\n// src/timeline/mod.rs — NLE Timeline\n\n/// Timeline-এর একটি clip\n#[derive(Debug, Clone)]\npub struct TimelineClip {\n    pub id: u64,\n    pub source_path: String,\n    pub track: u32,\n    pub start_frame: i64,    // Timeline-এ কোথায় শুরু\n    pub end_frame: i64,      // Timeline-এ কোথায় শেষ\n    pub in_point: i64,       // Source clip-এর কোথা থেকে শুরু\n    pub out_point: i64,      // Source clip-এর কোথায় শেষ\n}\n\n/// Timeline State\npub struct Timeline {\n    pub clips: Vec<TimelineClip>,\n    pub current_frame: i64,\n    pub total_frames: i64,\n    pub frame_rate: f32,\n}\n\nimpl Timeline {\n    pub fn new(frame_rate: f32) -> Self {\n        Self {\n            clips: Vec::new(),\n            current_frame: 0,\n            total_frames: 0,\n            frame_rate,\n        }\n    }\n\n    /// একটি clip যোগ করো\n    pub fn add_clip(&mut self, clip: TimelineClip) {\n        self.total_frames = self.total_frames.max(clip.end_frame);\n        self.clips.push(clip);\n    }\n\n    /// নির্দিষ্ট frame-এ কোন clips active আছে?\n    pub fn clips_at_frame(&self, frame: i64) -> Vec<&TimelineClip> {\n        self.clips.iter()\n            .filter(|c| frame >= c.start_frame && frame < c.end_frame)\n            .collect()\n    }\n\n    /// Timeline seconds থেকে frames এ convert\n    pub fn seconds_to_frames(&self, seconds: f32) -> i64 {\n        (seconds * self.frame_rate) as i64\n    }\n}\n```\n\n---\n\n## 📁 প্রজেক্ট স্ট্রাকচার\n\n```\n04-premiere-alternative/\n├── Cargo.toml\n├── src/\n│   ├── main.rs\n│   ├── formats/\n│   │   ├── prproj.rs      # Premiere Pro project reader\n│   │   └── fcpxml.rs      # Final Cut Pro XML reader\n│   ├── timeline/\n│   │   ├── mod.rs         # Timeline state\n│   │   ├── clip.rs        # Clip management\n│   │   └── effects.rs     # Video effects\n│   ├── decoder/\n│   │   └── ffmpeg.rs      # FFmpeg wrapper\n│   ├── renderer/\n│   │   └── gpu.rs         # WebGPU renderer\n│   └── ui/\n│       ├── timeline_view.rs\n│       └── preview.rs\n└── Cargo.lock\n```\n\n---\n\n## 📚 রিসোর্স\n\n- [FFmpeg Documentation](https://ffmpeg.org/documentation.html)\n- [wgpu (Rust WebGPU)](https://wgpu.rs/)\n- [storytold/filmcraft Reference](https://github.com/storytold/filmcraft)\n- [OpenTimelineIO](https://github.com/AcademySoftwareFoundation/OpenTimelineIO)
+
+## 🔬 Adobe Premiere PRPROJ Format Analysis
+
+Adobe Premiere Pro (`.prproj`) project files are gzip-compressed XML documents.
+
+```bash
+# Decompress and inspect PRPROJ XML:
+gzip -dc project.prproj | head -n 30
+```
+
+### PRPROJ XML Parser (Rust)
+
+```rust
+use serde::Deserialize;
+use flate2::read::GzDecoder;
+use std::io::Read;
+
+#[derive(Debug, Deserialize)]
+#[serde(rename = "PremiereData")]
+pub struct PremiereProject {
+    #[serde(rename = "Version")]
+    pub version: String,
+    #[serde(rename = "Sequence", default)]
+    pub sequences: Vec<Sequence>,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Sequence {
+    #[serde(rename = "Name")]
+    pub name: String,
+}
+
+pub fn load_prproj(path: &str) -> Result<PremiereProject, Box<dyn std::error::Error>> {
+    let file = std::fs::File::open(path)?;
+    let mut decoder = GzDecoder::new(file);
+    let mut xml = String::new();
+    decoder.read_to_string(&mut xml)?;
+    let project: PremiereProject = quick_xml::de::from_str(&xml)?;
+    Ok(project)
+}
+```
+
+---
+
+## 🚀 Building & Running
+
+```bash
+cargo build --release
+cargo run --release
+```

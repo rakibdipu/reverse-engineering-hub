@@ -1,115 +1,99 @@
-# 📖 Reverse Engineering Reference Links
+# 📖 Reverse Engineering Reference Links & Curated Resources
 
-> **সব গুরুত্বপূর্ণ রিসোর্স এক জায়গায়**
-
----
-
-## 🔗 মূল সংবাদ ও গবেষণা নিবন্ধ
-
-| # | শিরোনাম | লিংক | বিষয় |
-|---|---------|-------|-------|
-| 1 | REA Tool: AI + Ghidra + IDA Pro | [cybersecuritynews.com](https://cybersecuritynews.com/reverse-engineer-anything-tool/) | REA MCP টুল |
-| 2 | PS5 Jailbreak Floodgates Opening | [gizmodo.com](https://gizmodo.com/the-jailbreak-floodgates-are-opening-for-sonys-playstation-2000823193) | AI-accelerated RE |
+> **Comprehensive Directory of Upstream Research, Specifications, and Analysis Tools**
 
 ---
 
-## 🐙 GitHub রিপোজিটরি
+## 🔗 Key News & Research Articles
 
-### মূল প্রজেক্ট
-| # | রিপো | বিষয় |
-|---|------|-------|
+| # | Title | Link | Focus Area |
+|---|-------|------|------------|
+| 1 | REA Tool: AI + Ghidra + IDA Pro | [CyberSecurityNews](https://cybersecuritynews.com/reverse-engineer-anything-tool/) | AI coding agents connected to disassemblers via MCP |
+| 2 | PS5 Jailbreak Floodgates Opening | [Gizmodo](https://gizmodo.com/the-jailbreak-floodgates-are-opening-for-sonys-playstation-2000823193) | AI-accelerated binary exploit cycles & console security |
+
+---
+
+## 🐙 Key GitHub Repositories
+
+### Core Creative & RE Projects
+| # | Repository | Description |
+|---|------------|-------------|
 | 1 | [morluto/rea](https://github.com/morluto/rea) | Reverse Engineer Anything (REA Tool) |
-| 2 | [storytold/photocraft](https://github.com/storytold/photocraft) | Photoshop বিকল্প |
-| 3 | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) | Illustrator বিকল্প |
-| 4 | [storytold/filmcraft](https://github.com/storytold/filmcraft) | Premiere Pro বিকল্প |
-| 5 | [storytold/lightcraft](https://github.com/storytold/lightcraft) | Lightroom বিকল্প |
-| 6 | [storytold/effectcraft](https://github.com/storytold/effectcraft) | After Effects বিকল্প |
+| 2 | [storytold/photocraft](https://github.com/storytold/photocraft) | Photoshop Open-Source Alternative in Rust |
+| 3 | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) | Illustrator Open-Source Alternative in Rust |
+| 4 | [storytold/filmcraft](https://github.com/storytold/filmcraft) | Premiere Pro Open-Source Alternative in Rust |
+| 5 | [storytold/lightcraft](https://github.com/storytold/lightcraft) | Lightroom Open-Source Alternative in Rust |
+| 6 | [storytold/effectcraft](https://github.com/storytold/effectcraft) | After Effects Open-Source Alternative in Rust |
 
-### RE টুলস (Open Source)
-| # | টুল | লিংক | বিষয় |
-|---|-----|-------|-------|
-| 1 | Ghidra (NSA) | [github.com/NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra) | Free disassembler |
-| 2 | radare2 | [github.com/radareorg/radare2](https://github.com/radareorg/radare2) | Open source RE framework |
-| 3 | Binary Ninja | [binary.ninja](https://binary.ninja) | Commercial (student discount) |
-| 4 | x64dbg | [github.com/x64dbg/x64dbg](https://github.com/x64dbg/x64dbg) | Windows debugger |
-| 5 | pwndbg | [github.com/pwndbg/pwndbg](https://github.com/pwndbg/pwndbg) | GDB enhancement |
+### Open-Source Reverse Engineering Frameworks
+| # | Tool | Link | Description |
+|---|------|------|-------------|
+| 1 | Ghidra (NSA) | [github.com/NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra) | Free disassembler and decompiler suite |
+| 2 | radare2 | [github.com/radareorg/radare2](https://github.com/radareorg/radare2) | Complete open-source RE framework |
+| 3 | Binary Ninja | [binary.ninja](https://binary.ninja) | Commercial binary analysis platform |
+| 4 | x64dbg | [github.com/x64dbg/x64dbg](https://github.com/x64dbg/x64dbg) | Open-source Windows x64/x32 debugger |
+| 5 | pwndbg | [github.com/pwndbg/pwndbg](https://github.com/pwndbg/pwndbg) | GDB plug-in for exploit development and RE |
 
-### Adobe Format Libraries (Legal RE)
-| # | লাইব্রেরি | লিংক | ফরম্যাট |
-|---|-----------|-------|--------|
-| 1 | psd-tools | [github.com/psd-tools/psd-tools](https://github.com/psd-tools/psd-tools) | PSD (Python) |
-| 2 | libpsd | [github.com/libpsd/libpsd](https://github.com/libpsd/libpsd) | PSD (C) |
-| 3 | Inkscape | [gitlab.com/inkscape/inkscape](https://gitlab.com/inkscape/inkscape) | SVG/AI (C++) |
-| 4 | darktable | [github.com/darktable-org/darktable](https://github.com/darktable-org/darktable) | RAW/LRCAT (C) |
-| 5 | libraw | [github.com/LibRaw/LibRaw](https://github.com/LibRaw/LibRaw) | RAW formats (C++) |
-| 6 | Natron | [github.com/NatronGitHub/Natron](https://github.com/NatronGitHub/Natron) | VFX compositor (C++) |
-
----
-
-## 📄 Adobe Public Specifications
-
-| ফরম্যাট | স্পেসিফিকেশন | লিংক |
-|--------|-------------|-------|
-| PSD | Adobe Photoshop File Format | [adobe.com](https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/) |
-| PDF | ISO 32000 Standard | [pdfa.org](https://www.pdfa.org/resource/pdf-specification-index/) |
-| SVG | W3C SVG 2.0 Spec | [w3.org/TR/SVG](https://www.w3.org/TR/SVG/) |
-| EPS | Adobe PostScript | [adobe.com/products/postscript](https://www.adobe.com/products/postscript.html) |
-| DNG | Digital Negative Spec | [adobe.com/dng](https://helpx.adobe.com/photoshop/using/adobe-dng-converter.html) |
+### Format Parsers & Audio/Video Libraries
+| # | Library | Link | Format / Capability |
+|---|---------|------|---------------------|
+| 1 | psd-tools | [github.com/psd-tools/psd-tools](https://github.com/psd-tools/psd-tools) | Adobe Photoshop PSD/PSB Parser (Python) |
+| 2 | libpsd | [github.com/libpsd/libpsd](https://github.com/libpsd/libpsd) | Adobe Photoshop PSD Parser (C) |
+| 3 | Inkscape | [gitlab.com/inkscape/inkscape](https://gitlab.com/inkscape/inkscape) | Vector SVG/AI/PostScript Parser (C++) |
+| 4 | darktable | [github.com/darktable-org/darktable](https://github.com/darktable-org/darktable) | RAW Image Developer & LRCAT (C) |
+| 5 | LibRaw | [github.com/LibRaw/LibRaw](https://github.com/LibRaw/LibRaw) | Camera RAW format decoder (C++) |
+| 6 | Natron | [github.com/NatronGitHub/Natron](https://github.com/NatronGitHub/Natron) | Node-based Compositing Software (C++) |
 
 ---
 
-## 🎓 শেখার রিসোর্স
+## 📄 Official File Format Specifications
 
-### Reverse Engineering শেখার পথ
+| Format | Specification Title | Official Documentation |
+|--------|---------------------|------------------------|
+| **PSD** | Adobe Photoshop File Format | [Adobe Developer Connection](https://www.adobe.com/devnet-apps/photoshop/fileformatashtml/) |
+| **PDF** | ISO 32000 Document Management | [PDF Association](https://www.pdfa.org/resource/pdf-specification-index/) |
+| **SVG** | W3C Scalable Vector Graphics 2.0 | [W3C Standards](https://www.w3.org/TR/SVG/) |
+| **EPS** | PostScript Language Reference | [Adobe Systems](https://www.adobe.com/products/postscript.html) |
+| **DNG** | Digital Negative Specification | [Adobe DNG Specification](https://helpx.adobe.com/photoshop/using/adobe-dng-converter.html) |
+
+---
+
+## 🎓 Recommended Learning Path
 
 ```
-শুরু করুন:
-1. Assembly language basics (x86/ARM)
-2. C programming (pointers, memory)
-3. Operating system concepts
+Stage 1: Foundations
+  ├── Assembly Language (x86_64 and ARM64)
+  ├── C Programming (Pointers, Memory Allocation, Structures)
+  └── Operating System Internals (Processes, Virtual Memory, Syscalls)
 
-টুলস:
-4. Ghidra ব্যবহার শিখুন (free)
-5. GDB debugger
-6. pwndbg / peda
+Stage 2: Core Reverse Engineering
+  ├── Disassembly with NSA Ghidra
+  ├── GDB & pwndbg Debugging
+  └── Static & Dynamic Analysis of Executables
 
-প্র্যাকটিস:
-7. picoCTF (free, beginner-friendly)
-8. pwn.college (free, structured)
-9. CTFtime.org (competitions)
+Stage 3: Practice & Challenges
+  ├── picoCTF (Beginner-friendly security challenges)
+  ├── pwn.college (Structured computer security education)
+  └── CTFtime (Competitive cybersecurity events)
 
-Advanced:
-10. Binary exploitation (BOF, ROP chains)
-11. Kernel exploitation
-12. Firmware RE
+Stage 4: Advanced Exploitation & Internals
+  ├── Binary Exploitation (ROP chains, heap exploitation)
+  ├── Kernel Reverse Engineering & Driver Analysis
+  └── Hardware & Firmware Security (BootROM, RCM payloads)
 ```
-
-### বই
-1. **"Hacking: The Art of Exploitation"** — Jon Erickson
-2. **"The Art of Software Security Assessment"** — Dowd, McDonald, Schuh
-3. **"Practical Binary Analysis"** — Dennis Andriesse
-4. **"Reversing: Secrets of Reverse Engineering"** — Eldad Eilam
-
-### অনলাইন কোর্স
-- [OpenSecurityTraining2](https://opensecuritytraining.info/) — Free!
-- [pwn.college](https://pwn.college/) — Free!
-- [Malware Unicorn](https://malwareunicorn.org/) — Free!
-- [TCM Security](https://tcm-sec.com/) — Paid but affordable
 
 ---
 
-## ⚖️ আইনি ফ্রেমওয়ার্ক
+## ⚖️ Legal & Ethical Boundaries
 
-### কী করা যাবে (Legal):
-✅ নিজের সফটওয়্যার রিভার্স করা  
-✅ Security research (responsible disclosure)  
-✅ CTF competitions  
-✅ Interoperability (EU সফটওয়্যার ডিরেক্টিভ অনুযায়ী)  
-✅ Malware analysis  
-✅ Academic research  
+### Permitted Research Activities:
+* Auditing personal or open-source software.
+* Security research under responsible vulnerability disclosure programs.
+* Academic and educational security studies.
+* Interoperability engineering within legal reverse engineering safe harbors (e.g., EU Software Directive).
+* Malware triage in isolated sandbox environments.
 
-### কী করা যাবে না (Illegal):
-❌ Commercial software cracking  
-❌ Console jailbreak (USA: DMCA 17 USC §1201)  
-❌ DRM circumvention without authorization  
-❌ Unauthorized access to systems  
+### Prohibited & Illegal Activities:
+* Commercial software cracking or keygen distribution.
+* Unauthorized DRM circumvention (e.g., DMCA 17 U.S.C. §1201 in the United States).
+* Unauthorized penetration testing or intrusion on third-party infrastructure.

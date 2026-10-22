@@ -1,34 +1,42 @@
-# 🚀 GitHub-এ Upload করার গাইড
+# 🚀 GitHub Deployment Guide
 
-## ধাপ ১: GitHub-এ নতুন Repository তৈরি করুন
+This guide describes how to push, configure, and maintain the repository on GitHub.
 
-1. [github.com/new](https://github.com/new) যান
-2. Repository name: `reverse-engineering-hub`
-3. Description: `🔬 AI-Assisted RE Hub: REA Tool + Adobe Creative Alternatives + Security Research`
-4. Public রাখুন
-5. **"Add a README file" checkbox টিক দেবেন না** (আমাদের নিজের README আছে)
-6. Create repository ক্লিক করুন
+---
 
-## ধাপ ২: Remote যোগ করুন এবং Push করুন
+## Step 1: Create a New Repository on GitHub
+
+1. Navigate to [github.com/new](https://github.com/new).
+2. Repository name: `reverse-engineering-hub`.
+3. Description: `🔬 AI-Assisted Reverse Engineering, Creative Software Alternatives & Security Research`.
+4. Visibility: Select **Public**.
+5. **Do NOT** check "Add a README file", "Add .gitignore", or "Choose a license" (the repository already contains these files).
+6. Click **Create repository**.
+
+---
+
+## Step 2: Configure Git Remote & Push
 
 ```bash
 cd /home/dipu/PROJECT/Github/reverse-engineering-hub
 
-# আপনার GitHub username দিয়ে replace করুন
-git remote add origin https://github.com/YOUR_USERNAME/reverse-engineering-hub.git
+# Set your remote origin URL (SSH is recommended):
+git remote set-url origin git@github.com:rakibdipu/reverse-engineering-hub.git
 
-# Push করুন
+# Push main branch:
 git push -u origin main
 ```
 
-## ধাপ ৩: GitHub Token (যদি password না চলে)
+---
+
+## Step 3: Pushing via Personal Access Token (HTTPS)
+
+If SSH is not configured, you can authenticate over HTTPS using a GitHub Personal Access Token (PAT):
 
 ```bash
-# GitHub Personal Access Token তৈরি করুন:
-# Settings → Developer Settings → Personal Access Tokens → Tokens (classic)
-# Scope: repo (full control)
+# Set HTTPS remote with token:
+git remote set-url origin https://<TOKEN>@github.com/rakibdipu/reverse-engineering-hub.git
 
-# Token দিয়ে push:
-git remote set-url origin https://YOUR_TOKEN@github.com/YOUR_USERNAME/reverse-engineering-hub.git
+# Push main branch:
 git push -u origin main
 ```

@@ -1,135 +1,182 @@
 # 🔬 Reverse Engineering & Automation Mega Hub
 
-> **AI-Assisted Reverse Engineering, Creative Software Alternatives, Android TV Streaming & Low-Level OS Internals**
+> **AI-Assisted Reverse Engineering, Open-Source Creative Software Alternatives, Android TV Streaming Ecosystem & Low-Level OS Internals**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
 [![Projects](https://img.shields.io/badge/Projects-50%2B-blue)]()
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Rust](https://img.shields.io/badge/Rust-2021%20Edition-orange.svg)](https://www.rust-lang.org/)
 
 ---
 
-## 📸 প্রিভিউ (Live Repository Preview)
+## 📸 Live Repository Preview
 
 ![GitHub Repository Preview](screenshots/github_repo.png)
 
 ---
 
-## 📋 প্রজেক্ট ওভারভিউ (Project Overview)
+## 📋 Overview
 
-এই রিপোজিটরিতে বিশ্বের শীর্ষস্থানীয় ৩ জন বিশেষজ্ঞ ওপেন-সোর্স ডেভেলপার ([@yuliskov](https://github.com/yuliskov), [@WitherOrNot](https://github.com/WitherOrNot), [@stevietv](https://github.com/stevietv)) এবং আধুনিক AI রিভার্স-ইঞ্জিনিয়ারিং গবেষণার সেরা **৫০+ প্রকল্প** পৃথক পৃথক ফাইলে সংগঠিত করে উপস্থাপন করা হয়েছে।
+The **Reverse Engineering & Automation Mega Hub** is an extensive, production-grade monorepo containing over **50 modular projects** and **4 unified mega-platforms** spanning binary reverse engineering, low-level OS internals, Android TV media engines, and clean-room Rust implementations of creative desktop software.
+
+This repository curates, improves upon, and merges groundbreaking research from world-class reverse engineers: **[@yuliskov](https://github.com/yuliskov)**, **[@WitherOrNot](https://github.com/WitherOrNot)**, **[@stevietv](https://github.com/stevietv)**, **[@storytold](https://github.com/storytold)**, and **[@morluto](https://github.com/morluto)**.
 
 ---
 
-## 🌟 মূল স্রষ্টাদের স্বীকৃতি ও অবদান (Upstream Creators Hall of Fame)
+## 🌟 Upstream Creators Hall of Fame & Full Attribution
 
-এই প্রকল্পের প্রতিটি একক উপাদান বিশ্বের সেরা কিছু রিভার্স-ইঞ্জিনিয়ার এবং ওপেন-সোর্স ডেভেলপারদের উদ্ভাবনের ওপর প্রতিষ্ঠিত। আমরা তাদের প্রতি গভীর শ্রদ্ধা, কৃতজ্ঞতা ও পূর্ণ স্বীকৃতি (Full Attribution) প্রদান করছি:
+Every module in this repository stands on the shoulders of giants. We express our deepest gratitude and provide complete upstream attribution to the pioneering developers:
 
-| স্রষ্টা ও গিটহাব | প্রধান উদ্ভাবনসমূহ | আমরা কীভাবে আরও উন্নত ও মার্জ করেছি |
+| Creator & Profile | Key Innovations & Upstream Repos | Our Enhancements & Merged Value |
 |---|---|---|
-| **[@yuliskov](https://github.com/yuliskov)** | [SmartTube](https://github.com/yuliskov/SmartTube), MediaServiceCore, LeanKeyboard, PoTokenService | অ্যান্ড্রয়েড এসডিকে-এর ওপর নির্ভরতা কমিয়ে স্ট্যান্ডঅ্যালোন পাইথন/হেডলেস মডিউলে রূপান্তর করা হয়েছে; টিভি স্ট্রিমিং ও লোকাল প্লেক্স অটোমেশনকে `OmniStream TV`-তে মার্জ করা হয়েছে। |
-| **[@WitherOrNot](https://github.com/WitherOrNot)** | [XenonRecomp](https://github.com/WitherOrNot/XenonRecomp-XEO3), StartXBack, Warbird Docs, cbsexploder, uupget, mpclient | বিভিন্ন বিচ্ছিন্ন টুলস (gplayapi, uupget, mpclient) একত্রিত করে সরাসরি ডিফেন্ডার স্ক্যানিং সহ একটি স্বয়ংক্রিয় `Zero-API App Pipeline` গঠন করা হয়েছে। |
-| **[@stevietv](https://github.com/stevietv)** | [PlexTraktSync](https://github.com/stevietv/PlexTraktSync), Sonarr, Radarr, Flemmarr, homepage | সমস্ত *arr মিডিয়া অটোমেশন এবং প্লেক্স সিঙ্ককে কনফিগারেশন-অ্যাজ-কোড ও ড্যাশবোর্ডের সাথে মার্জ করে `Unified Homelab Hub` তৈরি করা হয়েছে। |
-| **[@storytold](https://github.com/storytold)** | [PhotoCraft](https://github.com/storytold/photocraft), VectorCraft, FilmCraft, LightCraft, EffectCraft | অ্যাডোবি ফাইলের বাইনারি ফরম্যাট (PSD, AI, PRPROJ, LRCAT, AEP) রিভার্স ইঞ্জিনিয়ারিং বিশ্লেষণ এবং বিশুদ্ধ রাস্টে সম্পূর্ণ `Cargo.toml` ও `egui` রানটাইম সোর্স যুক্ত করা হয়েছে। |
-| **[@morluto](https://github.com/morluto)** | [REA Tool](https://github.com/morluto/rea) (Reverse Engineer Anything) | Claude Code এবং Cursor AI এজেন্টের জন্য একটি স্ট্যান্ডঅ্যালোন পাইথন MCP সার্ভার, সরাসরি গিডরা ও আইডা প্রো ইন্টারফেস সহ তৈরি করা হয়েছে। |
+| **[@yuliskov (Yuriy L)](https://github.com/yuliskov)** | [SmartTube](https://github.com/yuliskov/SmartTube), [MediaServiceCore](https://github.com/yuliskov/MediaServiceCore), [LeanKeyboard](https://github.com/yuliskov/LeanKeyboard), [PoTokenService](https://github.com/yuliskov/PoTokenService) | Decoupled Android SDK dependencies into standalone cross-platform Python engines; merged ad-free streaming with local Plex synchronization into `OmniStream TV`. |
+| **[@WitherOrNot](https://github.com/WitherOrNot)** | [XenonRecomp-XEO3](https://github.com/WitherOrNot/XenonRecomp-XEO3), [StartXBack](https://github.com/WitherOrNot/StartXBack), [warbird-docs](https://github.com/WitherOrNot/warbird-docs), [cbsexploder](https://github.com/WitherOrNot/cbsexploder), [uupget](https://github.com/WitherOrNot/uupget), [mpclient](https://github.com/WitherOrNot/mpclient) | Synthesized fragmented utilities (Play Store APK fetching, Windows UUP updates, Defender mpengine) into an automated, headless `Zero-API App Pipeline`. |
+| **[@stevietv](https://github.com/stevietv)** | [PlexTraktSync](https://github.com/stevietv/PlexTraktSync), [Sonarr](https://github.com/stevietv/Sonarr), [Radarr](https://github.com/stevietv/Radarr), [Flemmarr](https://github.com/stevietv/Flemmarr), [homepage](https://github.com/stevietv/homepage) | Merged *arr media automation, declarative configuration-as-code, bandwidth monitoring, and router QoS tuning into the `Unified Homelab Hub`. |
+| **[@storytold](https://github.com/storytold)** | [PhotoCraft](https://github.com/storytold/photocraft), [VectorCraft](https://github.com/storytold/vectorcraft), [FilmCraft](https://github.com/storytold/filmcraft), [LightCraft](https://github.com/storytold/lightcraft), [EffectCraft](https://github.com/storytold/effectcraft) | Documented binary proprietary formats (PSD, AI, PRPROJ, LRCAT, AEP) and provided complete runnable desktop GUI implementations in pure Rust (`eframe`/`egui`). |
+| **[@morluto](https://github.com/morluto)** | [REA Tool](https://github.com/morluto/rea) (Reverse Engineer Anything) | Developed a standalone Python Model Context Protocol (MCP) server directly bridging Claude Code and Cursor with headless Ghidra and IDA Pro disassemblers. |
 
 ---
 
----
-
-## 🗂️ সম্পূর্ণ প্রজেক্ট স্ট্রাকচার (Repository Structure)
+## 🗂️ Repository Structure
 
 ```
 reverse-engineering-hub/
 │
 ├── 📁 01-07: REVERSE ENGINEERING & CREATIVE SUITE
-│   ├── 01-REA-tool/                    # REA: Reverse Engineer Anything (AI+Ghidra+IDA)
-│   ├── 02-photoshop-alternative/       # PhotoCraft — Adobe Photoshop বিকল্প (PSD RE)
-│   ├── 03-illustrator-alternative/     # VectorCraft — Adobe Illustrator বিকল্প (Bezier RE)
-│   ├── 04-premiere-alternative/        # FilmCraft — Adobe Premiere Pro বিকল্প (PRPROJ RE)
-│   ├── 05-lightroom-alternative/       # LightCraft — Adobe Lightroom বিকল্প (LRCAT SQLite RE)
-│   ├── 06-aftereffects-alternative/    # EffectCraft — Adobe After Effects বিকল্প (AEP RIFX RE)
-│   └── 07-ps5-jailbreak-research/      # PS5 Jailbreak ও কনসোল ফার্মওয়্যার সিকিউরিটি
+│   ├── 01-REA-tool/                    # REA: Reverse Engineer Anything (AI + Ghidra + IDA MCP Server)
+│   ├── 02-photoshop-alternative/       # PhotoCraft — Photoshop Alternative (PSD Binary RE + Rust egui)
+│   ├── 03-illustrator-alternative/     # VectorCraft — Illustrator Alternative (Bezier Engine + SVG/AI)
+│   ├── 04-premiere-alternative/        # FilmCraft — Premiere Pro Alternative (PRPROJ RE + NLE Timeline)
+│   ├── 05-lightroom-alternative/       # LightCraft — Lightroom Alternative (LRCAT SQLite RE + RAW Engine)
+│   ├── 06-aftereffects-alternative/    # EffectCraft — After Effects Alternative (AEP RIFX RE + WGSL Shader)
+│   └── 07-ps5-jailbreak-research/      # PS5 Console Firmware Security & AI-Accelerated Exploit Analysis
 │
-├── 📁 08-11: UNIFIED MERGED MEGA-PROJECTS (নতুন উদ্ভাবনী প্রজেক্ট)
-│   ├── 08-merged-omnistream-tv/        # OmniStream TV (SmartTube + InnerTube + Plex + Trakt)
-│   ├── 09-merged-app-pipeline/         # Zero-API Headless App & Media Pipeline (gplayapi + uupget + mpclient)
-│   ├── 10-merged-homelab-hub/          # Homelab Media Hub (homepage + Flemmarr + speedtest)
+├── 📁 08-11: UNIFIED MERGED MEGA-PROJECTS
+│   ├── 08-merged-omnistream-tv/        # OmniStream TV (SmartTube + InnerTube + Plex + Trakt Sync)
+│   ├── 09-merged-app-pipeline/         # Zero-API Headless App Pipeline (gplayapi + uupget + mpclient)
+│   ├── 10-merged-homelab-hub/          # Unified Homelab Hub (homepage + Flemmarr + Speedtest Monitor)
 │   └── 11-merged-remote-gaming-input/  # Virtual Remote Gaming Controller (chunithm + LeanKeyboard + QEMU)
 │
 ├── 📁 12-18: ANDROID TV & STREAMING ECOSYSTEM (yuliskov)
-│   ├── 12-yuliskov-smarttube/          # SmartTube & SmartTubeLegacy 4K HDR Player
-│   ├── 13-yuliskov-mediaservicecore/   # InnerTube API Extractor & Signature Decipher
-│   ├── 14-yuliskov-leankeyboard/       # Android TV D-pad Remote IME Keyboard
-│   ├── 15-yuliskov-potokenservice/     # YouTube Proof of Origin Bot Bypass Service
-│   ├── 16-yuliskov-previewseekbar/     # Thumbnail Video Timeline Scrub Bar
-│   ├── 17-yuliskov-chat-suite/         # Compose + Spring Boot WebSockets Chat Suite
-│   └── 18-yuliskov-system-tweaks/      # Windows & Padavan Router Streaming Tweaks
+│   ├── 12-yuliskov-smarttube/          # SmartTube & SmartTubeLegacy (4K HDR, AV1/VP9, SponsorBlock)
+│   ├── 13-yuliskov-mediaservicecore/   # InnerTube API Extractor & Signature Decipher Engine
+│   ├── 14-yuliskov-leankeyboard/       # Android TV D-Pad Remote On-Screen Keyboard Engine
+│   ├── 15-yuliskov-potokenservice/     # YouTube Proof of Origin (PO) Bot Bypass Token Generator
+│   ├── 16-yuliskov-previewseekbar/     # Video Scrubbing Thumbnail Preview Sprite Sheet Parser
+│   ├── 17-yuliskov-chat-suite/         # Asynchronous WebSocket Real-Time Chat Server & JWT Auth
+│   └── 18-yuliskov-system-tweaks/      # Low-Latency TCP Streaming & Network Buffer Optimization
 │
-├── 📁 19-31: OS INTERNALS & EMULATION (WitherOrNot)
-│   ├── 19-witherornot-xenonrecomp-xeo3/# Xbox 360 Static Recompiler for XEO3
-│   ├── 20-witherornot-startxback/      # In-Memory Hook & Patcher for Windows Shell
-│   ├── 21-witherornot-musedash-dlc-unlock/ # Unity Harmony Runtime Memory Patching
-│   ├── 22-witherornot-warbird-docs/    # Microsoft Warbird DRM & Obfuscation Internals
-│   ├── 23-witherornot-cbsexploder-sxsfounder/ # Windows CBS & WinSxS Tooling
-│   ├── 24-witherornot-uupget/          # Official Windows Update UUP Client
-│   ├── 25-witherornot-winkeycheck-licensing/ # PIDGen Validator & Licensing Research
-│   ├── 26-witherornot-ohook/           # Universal Office SPP Hook & DLL Proxy
-│   ├── 27-witherornot-mpclient/        # Standalone C Client for Defender mpengine.dll
-│   ├── 28-witherornot-gplayapi/        # Headless Google Play Store API Client
-│   ├── 29-witherornot-qemui/           # Modern C# Desktop GUI for QEMU
-│   ├── 30-witherornot-ntfstool/        # NTFS Forensics & BitLocker Recovery
-│   └── 31-witherornot-console-hacks/   # Nintendo Switch Tegra Payloads & Wii U Decrypt
+├── 📁 19-31: OS INTERNALS, RE & EMULATION (WitherOrNot)
+│   ├── 19-witherornot-xenonrecomp-xeo3/# Xbox 360 PPC Static Recompiler ABI Bridge for XEO3
+│   ├── 20-witherornot-startxback/      # In-Memory Shell Hook & Trampoline Injection Scanner
+│   ├── 21-witherornot-musedash-dlc-unlock/ # Unity Harmony Dynamic IL Instruction Patcher
+│   ├── 22-witherornot-warbird-docs/    # Microsoft Warbird Code Encryption & Entropy Scanner
+│   ├── 23-witherornot-cbsexploder-sxsfounder/ # Windows CBS (.mum) Update Manifest & WinSxS Parser
+│   ├── 24-witherornot-uupget/          # Microsoft Unified Update Platform Direct Catalog Client
+│   ├── 25-witherornot-winkeycheck-licensing/ # Windows 5x5 Product Key Decoder & Digital License Research
+│   ├── 26-witherornot-ohook/           # Universal SPP COM VTable Hook & DLL Proxy Interceptor
+│   ├── 27-witherornot-mpclient/        # Standalone Microsoft Defender mpengine.dll CLI Wrapper
+│   ├── 28-witherornot-gplayapi/        # Headless Google Play Store API Client & APK Resolver
+│   ├── 29-witherornot-qemui/           # Modern QEMU Virtual Machine Configuration & Runner
+│   ├── 30-witherornot-ntfstool/        # NTFS Master File Table ($MFT) Record Forensics Parser
+│   └── 31-witherornot-console-hacks/   # Nintendo Switch Tegra RCM Coldboot Payload Builder
 │
 ├── 📁 32-39: HOMELAB & MEDIA AUTOMATION (stevietv)
-│   ├── 32-stevietv-sonarr-radarr/      # Sonarr & Radarr PVR Automation
-│   ├── 33-stevietv-prowlarr/           # Centralized Torznab/Newznab Proxy
-│   ├── 34-stevietv-flemmarr/           # Configuration-as-Code for *arr Stack
-│   ├── 35-stevietv-plektraktsync/      # Local Plex to Trakt.tv Bi-directional Sync
-│   ├── 36-stevietv-plex-subs/          # Automated Plex Subtitle Configuration
-│   ├── 37-stevietv-homepage-dashboard/ # Customizable Homelab Service Dashboard
-│   ├── 38-stevietv-speedtest-analyser/ # Periodic Network Speed Monitor with Web UI
-│   └── 39-stevietv-vehicle-telematics/ # Hyundai/Kia UVO Connected Car API Client
+│   ├── 32-stevietv-sonarr-radarr/      # Unified Sonarr & Radarr Media Automation API Client
+│   ├── 33-stevietv-prowlarr/           # Torznab & Newznab Indexer Aggregator & Latency Monitor
+│   ├── 34-stevietv-flemmarr/           # Declarative Configuration-as-Code Sync Engine for *arr
+│   ├── 35-stevietv-plektraktsync/      # Local Plex Media Server to Trakt.tv Two-Way Scrobbler
+│   ├── 36-stevietv-plex-subs/          # Batch Subtitle Language Preference Automation Engine
+│   ├── 37-stevietv-homepage-dashboard/ # Real-time Docker & Homelab Metrics Exporter for Homepage
+│   ├── 38-stevietv-speedtest-analyser/ # Headless Network Speedtest Monitor & Trend Logger
+│   └── 39-stevietv-vehicle-telematics/ # Hyundai Bluelink & Kia UVO Telematics API Client
 │
 └── 📁 docs/
-    ├── REFERENCES.md                   # সমস্ত রেফারেন্স আর্টিকেলের তালিকা
-    └── TOP_50_PROJECTS_CATALOG.md      # সম্পূর্ণ ৫০টি প্রকল্পের পুঙ্খানুপুঙ্খ ক্যাটালগ
+    ├── REFERENCES.md                   # Curated Reference Papers, Articles & Libraries
+    └── TOP_50_PROJECTS_CATALOG.md      # Comprehensive Catalog Table of All 50 Repositories
 ```
 
 ---
 
-## 🚀 দ্রুত শুরু করুন (Quick Start)
+## ⚡ The 4 Unified Merged Mega-Projects
 
+Instead of keeping valuable utilities siloed, we engineered 4 unified platforms that combine multiple upstream components:
+
+### 1. 📺 OmniStream TV (`08-merged-omnistream-tv`)
+* **Components Merged:** `yuliskov/SmartTube` + `yuliskov/MediaServiceCore` + `yuliskov/LeanKeyboard` + `stevietv/PlexTraktSync`
+* **Innovation:** An all-in-one smart media center that unifies online streaming (YouTube 4K AV1 with SponsorBlock) and local personal media (Plex/Jellyfin) into a single Leanback TV interface, complete with D-pad typing and bidirectional Trakt.tv watch history scrobbling.
+
+### 2. ⚡ Zero-API App & Media Pipeline (`09-merged-app-pipeline`)
+* **Components Merged:** `WitherOrNot/gplayapi` + `WitherOrNot/uupget` + `WitherOrNot/mpclient` + `yuliskov/PoTokenService`
+* **Innovation:** An end-to-end automated asset pipeline that downloads original Google Play APKs, fetches genuine Windows ESD/CAB update packages directly from Microsoft servers, bypasses stream bot-detection throttles via PO tokens, and instantly audits all binaries using the native Microsoft Defender scanning engine.
+
+### 3. 🏠 Unified Homelab Hub (`10-merged-homelab-hub`)
+* **Components Merged:** `stevietv/homepage` + `stevietv/Flemmarr` + `stevietv/docker-speedtest-analyser` + `yuliskov/padavan-tweaks`
+* **Innovation:** Centralized homelab control plane combining a unified service health dashboard, declarative configuration-as-code for all media apps, automated bandwidth tracking, and router TCP buffer optimizations for high-bitrate 4K streaming.
+
+### 4. 🎮 Virtual Remote Gaming Controller (`11-merged-remote-gaming-input`)
+* **Components Merged:** `WitherOrNot/chunithm-vcontroller` + `WitherOrNot/qemui` + `yuliskov/LeanKeyboard`
+* **Innovation:** Cross-device input bridge translating mobile touch gestures and standard TV remote D-pad keystrokes into low-latency virtual gamepad inputs routed directly into QEMU virtual machines and arcade emulators.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
 ```bash
-# রিপোজিটরি ক্লোন করুন
 git clone https://github.com/rakibdipu/reverse-engineering-hub.git
 cd reverse-engineering-hub
+```
 
-# বিস্তারিত ৫০টি প্রজেক্টের ক্যাটালগ দেখতে:
+### 2. Inspect the 50 Projects Catalog
+```bash
 cat docs/TOP_50_PROJECTS_CATALOG.md
+```
 
-# OmniStream TV মার্জ প্রজেক্ট পরীক্ষা করতে:
-cd 08-merged-omnistream-tv
-python3 omnistream_core.py
+### 3. Test Running Key Modules
+All 32 Python modules are self-contained and run out-of-the-box:
+
+```bash
+# Test the OmniStream TV media engine:
+python3 08-merged-omnistream-tv/omnistream_core.py
+
+# Test the Zero-API App & Security Pipeline:
+python3 09-merged-app-pipeline/pipeline.py
+
+# Test the SmartTube stream extractor & SponsorBlock query:
+python3 12-yuliskov-smarttube/smarttube_stream_extractor.py
+
+# Test the Windows Product Key Validator:
+python3 25-witherornot-winkeycheck-licensing/pidgen_validator.py
+```
+
+### 4. Running the Creative Craft Apps (Rust + egui)
+Each creative desktop app in `02-06` contains a standard `Cargo.toml` and GUI entry point:
+
+```bash
+cd 02-photoshop-alternative
+cargo run --release
 ```
 
 ---
 
-## 📚 এক্সটার্নাল রেফারেন্স ও ক্রেডিট
+## 📚 References & Research Papers
 
-| রেফারেন্স | লিংক | বিষয়বস্তু |
-|-----------|------|-----------|
-| **Yuriy L (yuliskov)** | [github.com/yuliskov](https://github.com/yuliskov) | SmartTube, MediaServiceCore, LeanKeyboard |
-| **WitherOrNot** | [github.com/WitherOrNot](https://github.com/WitherOrNot) | XenonRecomp, StartXBack, uupget, mpclient |
-| **StevieTV** | [github.com/stevietv](https://github.com/stevietv) | Sonarr, Radarr, Prowlarr, PlexTraktSync |
-| **REA Tool** | [CyberSecurityNews](https://cybersecuritynews.com/reverse-engineer-anything-tool/) | AI + Ghidra/IDA Pro integration |
-| **PS5 Jailbreak** | [Gizmodo](https://gizmodo.com/the-jailbreak-floodgates-are-opening-for-sonys-playstation-2000823193) | Console Firmware & AI Acceleration |
-| **CraftApps Suite** | [github.com/storytold](https://github.com/storytold) | Rust-based Clean-room Adobe Alternatives |
+| Resource | Source | Topic |
+|---|---|---|
+| **REA Tool** | [CyberSecurityNews](https://cybersecuritynews.com/reverse-engineer-anything-tool/) | AI Coding Agents + Ghidra / IDA Pro Integration |
+| **PS5 Jailbreak Analysis** | [Gizmodo](https://gizmodo.com/the-jailbreak-floodgates-are-opening-for-sonys-playstation-2000823193) | PlayStation 5 Console Firmware & AI Acceleration |
+| **Original REA Repository** | [morluto/rea](https://github.com/morluto/rea) | Reverse Engineer Anything MCP Server |
+| **CraftApps Suite** | [storytold](https://github.com/storytold) | Open-Source Rust Creative Suite (PhotoCraft, FilmCraft, etc.) |
+| **Ghidra Software Reverse Engineering** | [NSA Ghidra](https://ghidra-sre.org/) | NSA Disassembler & Decompiler Framework |
+
+---
+
+## ⚠️ Disclaimer
+
+> This repository and its accompanying source codes are provided strictly for **educational, academic, and security research purposes**. Any analysis of third-party software, firmware, or network protocols should strictly adhere to applicable local laws, authorized penetration testing scopes, and the terms of relevant software licenses.
 
 ---
 
-## ⚠️ ডিসক্লেইমার
-
-> এই রিপোজিটরির সমস্ত তথ্য এবং সোর্স কোড **শুধুমাত্র শিক্ষামূলক এবং গবেষণার উদ্দেশ্যে** প্রদান করা হয়েছে। যেকোনো থার্ড-পার্টি বাইনারি বিশ্লেষণের ক্ষেত্রে আঞ্চলিক আইন ও প্রযোজ্য নীতিমালা মেনে চলুন।
-
----
-*Made with ❤️ by [MD. RaKib Hassan Dipu](https://github.com/rakibdipu)*
+*Authored and curated with care by [MD. RaKib Hassan Dipu](https://github.com/rakibdipu)*

@@ -1,74 +1,74 @@
 # 📚 Complete Top 50 Projects Catalog
 
-> **Curated from [@stevietv](https://github.com/stevietv), [@yuliskov](https://github.com/yuliskov), and [@WitherOrNot](https://github.com/WitherOrNot)**
+> **Curated & Evaluated from [@stevietv](https://github.com/stevietv), [@yuliskov](https://github.com/yuliskov), and [@WitherOrNot](https://github.com/WitherOrNot)**
 
 ---
 
-## 🌟 ক্যাটাগরি ১: Android TV, স্ট্রিমিং ও মিডিয়া প্লেয়ার (yuliskov)
+## 🌟 Category 1: Android TV, Streaming & Media Engines (yuliskov)
 
-| # | প্রজেক্ট নাম | গিটহাব রিপো | টেক স্ট্যাক | প্রধান কাজ ও উপযোগিতা |
-|---|-------------|------------|------------|-----------------------|
-| 1 | **SmartTube** | [yuliskov/SmartTube](https://github.com/yuliskov/SmartTube) | Java / C++ | Android TV-র সেরা YouTube ক্লায়েন্ট (SponsorBlock, 4K HDR, নো-অ্যাড) |
-| 2 | **SmartTubeLegacy** | [yuliskov/SmartTubeLegacy](https://github.com/yuliskov/SmartTubeLegacy) | JavaScript / HTML | কম ক্ষমতাসম্পন্ন টিভি বক্সের লাইটওয়েট ওয়েবভিউ প্লেয়ার |
-| 3 | **LeanKeyboard** | [yuliskov/LeanKeyboard](https://github.com/yuliskov/LeanKeyboard) | Java | টিভি রিমোটের D-pad এর জন্য অপ্টিমাইজড ভার্চুয়াল কিবোর্ড |
-| 4 | **MediaServiceCore** | [yuliskov/MediaServiceCore](https://github.com/yuliskov/MediaServiceCore) | JavaScript / Java | YouTube InnerTube API এক্সট্র্যাক্টর ও স্ট্রিম ডিক্রিপ্টার |
-| 5 | **PoTokenService** | [yuliskov/PoTokenService](https://github.com/yuliskov/PoTokenService) | TypeScript | YouTube বট ডিটেকশন ও 403 এরর বাইপাসের PO টোকেন জেনারেটর |
-| 6 | **SharedModules** | [yuliskov/SharedModules](https://github.com/yuliskov/SharedModules) | Java | Android TV ইউটিলিটি, নেটওয়ার্ক ক্যাশিং ও ExoPlayer হেল্পার |
-| 7 | **ExoPlayer (Custom)** | [yuliskov/ExoPlayer](https://github.com/yuliskov/ExoPlayer) | Java | টিভির জন্য অপ্টিমাইজড ExoPlayer মিডিয়া প্লেয়ার ইঞ্জিন |
-| 8 | **exoplayer-amazon-port** | [yuliskov/exoplayer-amazon-port](https://github.com/yuliskov/exoplayer-amazon-port) | Java | Amazon Fire TV ও FireStick ডিভাইসের হার্ডওয়্যার ডিকোডিং ইঞ্জিন |
-| 9 | **PreviewSeekBar** | [yuliskov/PreviewSeekBar](https://github.com/yuliskov/PreviewSeekBar) | Java | ভিডিও টাইমলাইন স্ক্রাব করার সময় থাম্বনেইল প্রিভিউ স্ক্রাবার |
-| 10 | **WorkingWithMultipleKeyboards**| [yuliskov/WorkingWithMultipleKeyboards](https://github.com/yuliskov/WorkingWithMultipleKeyboards) | Java | Android TV-তে কাস্টম লেআউট ও রিমোট ইনপুট ইঞ্জিন |
-| 11 | **MyVideoTube** | [yuliskov/MyVideoTube](https://github.com/yuliskov/MyVideoTube) | Java | মাল্টি-প্ল্যাটফর্ম ভিডিও হোস্টিং ফ্রন্টএন্ড |
-| 12 | **NewPipeExtractor (Fork)** | [yuliskov/NewPipeExtractor](https://github.com/yuliskov/NewPipeExtractor) | Java | YouTube, SoundCloud ইত্যাদি থেকে মেটাডাটা ও স্ট্রিম পার্সার |
-| 13 | **ChatKit (Fork)** | [yuliskov/ChatKit](https://github.com/yuliskov/ChatKit) | Java | অ্যান্ড্রয়েডের ফ্লেক্সিবল চ্যাট UI লাইব্রেরি |
-| 14 | **MyChatClient** | [yuliskov/MyChatClient](https://github.com/yuliskov/MyChatClient) | Kotlin / Compose | Jetpack Compose ও WebSockets দিয়ে তৈরি রিয়েল-টাইম চ্যাট অ্যাপ |
-| 15 | **MyChatService** | [yuliskov/MyChatService](https://github.com/yuliskov/MyChatService) | Java / Spring Boot | লাইভ মেসেজিং WebSocket ব্যাকএন্ড সার্ভিস |
-| 16 | **MyAuthService** | [yuliskov/MyAuthService](https://github.com/yuliskov/MyAuthService) | Java / Spring Security | JWT এবং সোশ্যাল লগইন অথেন্টিকেশন সার্ভিস |
-| 17 | **windows-tweaks** | [yuliskov/windows-tweaks](https://github.com/yuliskov/windows-tweaks) | Batch | উইন্ডোজের টেলিমেট্রি বন্ধ করে স্ট্রিমিং ও গেমিং পারফরম্যান্স বৃদ্ধি |
-| 18 | **padavan-tweaks** | [yuliskov/padavan-tweaks](https://github.com/yuliskov/padavan-tweaks) | Shell | রাউটার ফার্মওয়্যারের লো-লেটেন্সি স্ট্রিমিং টুইক |
-| 19 | **q-learning-java** | [yuliskov/q-learning-java](https://github.com/yuliskov/q-learning-java) | Java | পিওর জাভাতে রিইনফোর্সমেন্ট লার্নিং (Q-learning) অ্যালগরিদম |
-| 20 | **RageShaderInfo2.0** | [yuliskov/RageShaderInfo2.0](https://github.com/yuliskov/RageShaderInfo2.0) | C# | GTA IV / RAGE ইঞ্জিন শেডার এক্সট্র্যাক্টর ও এডিটর |
-
----
-
-## 🔬 ক্যাটাগরি ২: উইন্ডোজ ইন্টারনালস, রিভার্স-ইঞ্জিনিয়ারিং ও এমুলেশন (WitherOrNot)
-
-| # | প্রজেক্ট নাম | গিটহাব রিপো | টেক স্ট্যাক | প্রধান কাজ ও উপযোগিতা |
-|---|-------------|------------|------------|-----------------------|
-| 21 | **XenonRecomp-XEO3** | [WitherOrNot/XenonRecomp-XEO3](https://github.com/WitherOrNot/XenonRecomp-XEO3) | C++ / LLVM | Xbox 360 গেমকে মাইক্রোসফটের অফিশিয়াল XEO3 এমুলেটরে চালানোর প্রজেক্ট |
-| 22 | **StartXBack** | [WitherOrNot/StartXBack](https://github.com/WitherOrNot/StartXBack) | C | StartAllBack উইন্ডোজ শেল মডিফিকেশনের ইন-মেমোরি হুক ও প্যাচার |
-| 23 | **MuseDashDLCUnlock** | [WitherOrNot/MuseDashDLCUnlock](https://github.com/WitherOrNot/MuseDashDLCUnlock) | C# / Harmony | ইউনিটি গেমের রানটাইম মেমোরি ইনজেকশন ও DLC আনলকার |
-| 24 | **warbird-docs** | [WitherOrNot/warbird-docs](https://github.com/WitherOrNot/warbird-docs) | Markdown / Docs | মাইক্রোসফট Warbird কার্নেল অফাসকেশন ও অ্যান্টি-ট্যাম্পার ইন্টারনালস |
-| 25 | **cbsexploder** | [WitherOrNot/cbsexploder](https://github.com/WitherOrNot/cbsexploder) | C++ | উইন্ডোজ Component-Based Servicing (CBS) আপডেট প্যাকেজ ক্লায়েন্ট |
-| 26 | **cbs-docs** | [WitherOrNot/cbs-docs](https://github.com/WitherOrNot/cbs-docs) | Docs | CBS প্যাকেজিং ও এডিশন স্টেজিংয়ের রিভার্স ইঞ্জিনিয়ারিং ডকুমেন্টস |
-| 27 | **uupget** | [WitherOrNot/uupget](https://github.com/WitherOrNot/uupget) | Python | মাইক্রোসফট UUP সার্ভার থেকে সরাসরি উইন্ডোজ আপডেট ESD/CAB ডাউনলোডার |
-| 28 | **sxsfounder** | [WitherOrNot/sxsfounder](https://github.com/WitherOrNot/sxsfounder) | C++ | WinSxS অ্যাসেম্বলি বিশ্লেষণ করে কাস্টম লাইটওয়েট ওএস বেস ইমেজ তৈরি |
-| 29 | **winkeycheck** | [WitherOrNot/winkeycheck](https://github.com/WitherOrNot/winkeycheck) | Python | মাইক্রোসফট অনলাইন PIDGen সার্ভিসে প্রোডাক্ট কি ভ্যালিডেশন চেকার |
-| 30 | **digital-license-activation** | [WitherOrNot/...](https://github.com/WitherOrNot/how-to-activate-windows-with-digital-license-for-any-edition) | Research | উইন্ডোজ HWID এবং ডিজিটাল লাইসেন্স টিকেটিং রিভার্স ইঞ্জিনিয়ারিং |
-| 31 | **chacha** | [WitherOrNot/chacha](https://github.com/WitherOrNot/chacha) | Batch | অ্যাক্টিভ ডিরেক্টরি ডোমেন ছাড়া উইন্ডোজ অ্যাক্টিভেশন টেকনিক |
-| 32 | **ohook** | [WitherOrNot/ohook](https://github.com/WitherOrNot/ohook) | C / ASM | ইউনিভার্সাল SPP হুক ও DLL প্রক্সি |
-| 33 | **mpclient** | [WitherOrNot/mpclient](https://github.com/WitherOrNot/mpclient) | C | উইন্ডোজ ডিফেন্ডারের mpengine.dll সরাসরি ডেকে কমান্ডলাইনে স্ক্যান |
-| 34 | **gplayapi** | [WitherOrNot/gplayapi](https://github.com/WitherOrNot/gplayapi) | Python | গুগল প্লে স্টোর থেকে সরাসরি অরিজিনাল APK ডাউনলোডার |
-| 35 | **qemui** | [WitherOrNot/qemui](https://github.com/WitherOrNot/qemui) | C# / WPF | QEMU হাইপারভাইজারের আধুনিক ডেস্কটপ গ্রাফিক্যাল ফ্রন্টএন্ড |
-| 36 | **ntfstool** | [WitherOrNot/ntfstool](https://github.com/WitherOrNot/ntfstool) | C / Python | লো-লেভেল NTFS ফাইল সিস্টেম পার্সার (MFT রেকর্ড ও বিটলকার ভলিউম) |
-| 37 | **cdecrypt** | [WitherOrNot/cdecrypt](https://github.com/WitherOrNot/cdecrypt) | C | Nintendo Wii U-এর এনক্রিপ্টেড NUS গেম ফাইল ডিক্রিপশন টুল |
-| 38 | **fgtemplate** | [WitherOrNot/fgtemplate](https://github.com/WitherOrNot/fgtemplate) | C / ASM | নিন্টেন্ডো সুইচের Fusée Gelée কোল্ডবুট এক্সপ্লয়েট পেলোড টেমপ্লেট |
-| 39 | **chunithm-vcontroller** | [WitherOrNot/chunithm-vcontroller](https://github.com/WitherOrNot/chunithm-vcontroller) | C# | টাচস্ক্রিন ডিভাইসের জন্য ভার্চুয়াল আর্কেড গেম কন্ট্রোলার |
-| 40 | **wiiqt** | [WitherOrNot/wiiqt](https://github.com/WitherOrNot/wiiqt) | C++ / Qt | Nintendo Wii-এর NAND এবং ডিস্ক ইমেজ ম্যানিপুলেশন টুল |
-| 41 | **genuine-kms-server** | [WitherOrNot/...](https://github.com/WitherOrNot/how-to-enable-a-genuine-kms-server-with-a-blocked-csvlk) | Docs | কর্পোরেট KMS সার্ভার ইমুলেশন ও ব্লকড CSVLK রিস্টোর মেথড |
+| # | Project Name | Upstream Repository | Tech Stack | Primary Capabilities & Engineering Utility |
+|---|-------------|---------------------|------------|--------------------------------------------|
+| 1 | **SmartTube** | [yuliskov/SmartTube](https://github.com/yuliskov/SmartTube) | Java / C++ | Top Android TV client featuring native SponsorBlock, 4K HDR playback, and zero Google Play Services dependencies. |
+| 2 | **SmartTubeLegacy** | [yuliskov/SmartTubeLegacy](https://github.com/yuliskov/SmartTubeLegacy) | JavaScript / HTML | Lightweight WebView-based media player optimized for legacy and low-RAM TV hardware. |
+| 3 | **LeanKeyboard** | [yuliskov/LeanKeyboard](https://github.com/yuliskov/LeanKeyboard) | Java | On-screen virtual keyboard specifically engineered for directional D-pad remote navigation. |
+| 4 | **MediaServiceCore** | [yuliskov/MediaServiceCore](https://github.com/yuliskov/MediaServiceCore) | JavaScript / Java | Reverse-engineered YouTube InnerTube client endpoints with stream deciphering and protobuf extraction. |
+| 5 | **PoTokenService** | [yuliskov/PoTokenService](https://github.com/yuliskov/PoTokenService) | TypeScript | Service generating YouTube Proof of Origin (PO) tokens to bypass automated bot throttles and 403 Forbidden errors. |
+| 6 | **SharedModules** | [yuliskov/SharedModules](https://github.com/yuliskov/SharedModules) | Java | Reusable Android TV utility modules, network caching mechanisms, and ExoPlayer helpers. |
+| 7 | **ExoPlayer (Custom)** | [yuliskov/ExoPlayer](https://github.com/yuliskov/ExoPlayer) | Java | Tuned Google ExoPlayer fork customized for television display standards and multi-codec passthrough. |
+| 8 | **exoplayer-amazon-port** | [yuliskov/exoplayer-amazon-port](https://github.com/yuliskov/exoplayer-amazon-port) | Java | Hardware acceleration port specifically tuned for Amazon Fire TV and FireStick streaming devices. |
+| 9 | **PreviewSeekBar** | [yuliskov/PreviewSeekBar](https://github.com/yuliskov/PreviewSeekBar) | Java | Floating frame thumbnail scrub bar for seeking within video timelines using sprite sheets. |
+| 10 | **WorkingWithMultipleKeyboards** | [yuliskov/WorkingWithMultipleKeyboards](https://github.com/yuliskov/WorkingWithMultipleKeyboards) | Java | Android TV input framework supporting custom international layouts and multi-input devices. |
+| 11 | **MyVideoTube** | [yuliskov/MyVideoTube](https://github.com/yuliskov/MyVideoTube) | Java | Experimental multi-platform video hosting frontend and media aggregator. |
+| 12 | **NewPipeExtractor (Fork)** | [yuliskov/NewPipeExtractor](https://github.com/yuliskov/NewPipeExtractor) | Java | Streaming extractor parsing video URLs, playlists, and channel metadata without Google API keys. |
+| 13 | **ChatKit (Fork)** | [yuliskov/ChatKit](https://github.com/yuliskov/ChatKit) | Java | Modular, customizable chat UI library for Android applications. |
+| 14 | **MyChatClient** | [yuliskov/MyChatClient](https://github.com/yuliskov/MyChatClient) | Kotlin / Compose | Real-time messaging client built using modern declarative Jetpack Compose and WebSockets. |
+| 15 | **MyChatService** | [yuliskov/MyChatService](https://github.com/yuliskov/MyChatService) | Java / Spring Boot | High-throughput WebSocket chat backend supporting real-time message broadcasting. |
+| 16 | **MyAuthService** | [yuliskov/MyAuthService](https://github.com/yuliskov/MyAuthService) | Java / Spring Security | Authentication microservice supporting JSON Web Tokens (JWT) and social OAuth2 authentication. |
+| 17 | **windows-tweaks** | [yuliskov/windows-tweaks](https://github.com/yuliskov/windows-tweaks) | Batch | Automated scripts disabling Windows telemetry, bloatware, and DPC latency spikes for smooth playback. |
+| 18 | **padavan-tweaks** | [yuliskov/padavan-tweaks](https://github.com/yuliskov/padavan-tweaks) | Shell | Router firmware tuning scripts configuring QoS and low-latency TCP buffers for 4K video streams. |
+| 19 | **q-learning-java** | [yuliskov/q-learning-java](https://github.com/yuliskov/q-learning-java) | Java | Pure Java implementation of reinforcement learning (Q-Learning) algorithms. |
+| 20 | **RageShaderInfo2.0** | [yuliskov/RageShaderInfo2.0](https://github.com/yuliskov/RageShaderInfo2.0) | C# | Shader parser and extractor for the Rockstar Advanced Game Engine (RAGE / GTA IV). |
 
 ---
 
-## 🏠 ক্যাটাগরি ৩: হোমল্যাব, মিডিয়া অটোমেশন ও ড্যাশবোর্ড (stevietv)
+## 🔬 Category 2: Windows Internals, Reverse Engineering & Emulation (WitherOrNot)
 
-| # | প্রজেক্ট নাম | গিটহাব রিপো | টেক স্ট্যাক | প্রধান কাজ ও উপযোগিতা |
-|---|-------------|------------|------------|-----------------------|
-| 42 | **Sonarr (Fork & Contrib)**| [stevietv/Sonarr](https://github.com/stevietv/Sonarr) | C# / .NET | টিভি সিরিজের এপিসোড ট্র্যাকিং, টরেন্ট/ইউজনেটে অটোমেটেড PVR |
-| 43 | **Radarr (Fork & Contrib)**| [stevietv/Radarr](https://github.com/stevietv/Radarr) | C# / .NET | মুভি লাইব্রেরি ম্যানেজমেন্ট ও অটোমেটিক ডাউনলোড ইঞ্জিন |
-| 44 | **Prowlarr (Fork)** | [stevietv/Prowlarr](https://github.com/stevietv/Prowlarr) | C# / .NET | টরেন্ট ট্র্যাকার ও ইনডেক্সার সেন্ট্রালাইজড ম্যানেজমেন্ট প্রক্সি |
-| 45 | **Flemmarr** | [stevietv/Flemmarr](https://github.com/stevietv/Flemmarr) | Python / Docker | কনফিগারেশন-অ্যাজ-কোড দিয়ে *arr স্ট্যাক অটোমেশন |
-| 46 | **PlexTraktSync** | [stevietv/PlexTraktSync](https://github.com/stevietv/PlexTraktSync) | Python | লোকাল Plex মিডিয়া সার্ভারের সাথে Trakt.tv ওয়াচ-হিস্ট্রি সিঙ্ক |
-| 47 | **PlexPreferNonForcedSubs**| [stevietv/PlexPreferNonForcedSubs](https://github.com/stevietv/PlexPreferNonForcedSubs) | Python | Plex লাইব্রেরির ভাষা অনুযায়ী সাবটাইটেল প্রেফারেন্স বাল্ক আপডেট |
-| 48 | **homepage** | [stevietv/homepage](https://github.com/stevietv/homepage) | JavaScript / React | সেলফ-হোস্টেড ডকার ও হোমল্যাব অ্যাপ্লিকেশনের সেন্ট্রাল ড্যাশবোর্ড |
-| 49 | **docker-speedtest-analyser** | [stevietv/docker-speedtest-analyser](https://github.com/stevietv/docker-speedtest-analyser) | PHP / JS | NAS বা সার্ভারে নেটওয়ার্ক স্পিড টেস্ট করে গ্রাফিকাল রিপোর্ট প্রদান |
-| 50 | **hyundai_kia_connect_api** | [stevietv/hyundai_kia_connect_api](https://github.com/stevietv/hyundai_kia_connect_api) | Python | গাড়ির টেলিমেটিক্স (ব্যাটারি, জিপিএস, লক স্টেট) হোম অ্যাসিস্ট্যান্ট API |
+| # | Project Name | Upstream Repository | Tech Stack | Primary Capabilities & Engineering Utility |
+|---|-------------|---------------------|------------|--------------------------------------------|
+| 21 | **XenonRecomp-XEO3** | [WitherOrNot/XenonRecomp-XEO3](https://github.com/WitherOrNot/XenonRecomp-XEO3) | C++ / LLVM | Static recompilation bridge running recompiled Xbox 360 PowerPC binaries on Microsoft's official XEO3 emulator. |
+| 22 | **StartXBack** | [WitherOrNot/StartXBack](https://github.com/WitherOrNot/StartXBack) | C | In-memory hook and runtime patcher for StartAllBack and StartIsBack Windows shell customizations. |
+| 23 | **MuseDashDLCUnlock** | [WitherOrNot/MuseDashDLCUnlock](https://github.com/WitherOrNot/MuseDashDLCUnlock) | C# / Harmony | Dynamic runtime IL bytecode patcher demonstrating Unity game memory injection. |
+| 24 | **warbird-docs** | [WitherOrNot/warbird-docs](https://github.com/WitherOrNot/warbird-docs) | Markdown / Docs | Reverse-engineered technical documentation of Microsoft's Warbird kernel anti-tamper and code mutation system. |
+| 25 | **cbsexploder** | [WitherOrNot/cbsexploder](https://github.com/WitherOrNot/cbsexploder) | C++ | Tooling for Windows Component-Based Servicing (CBS) update packages (.cab, .mum). |
+| 26 | **cbs-docs** | [WitherOrNot/cbs-docs](https://github.com/WitherOrNot/cbs-docs) | Docs | Comprehensive documentation of Windows component staging and CBS update execution routines. |
+| 27 | **uupget** | [WitherOrNot/uupget](https://github.com/WitherOrNot/uupget) | Python | Direct client querying Microsoft Unified Update Platform (UUP) servers to fetch original update packages. |
+| 28 | **sxsfounder** | [WitherOrNot/sxsfounder](https://github.com/WitherOrNot/sxsfounder) | C++ | WinSxS assembly analyzer generating slimmed, minimal base Windows deployment images. |
+| 29 | **winkeycheck** | [WitherOrNot/winkeycheck](https://github.com/WitherOrNot/winkeycheck) | Python | Tool validating Microsoft product keys against online PIDGen licensing endpoints. |
+| 30 | **digital-license-activation** | [WitherOrNot/...](https://github.com/WitherOrNot/how-to-activate-windows-with-digital-license-for-any-edition) | Research | Deep research into Windows HWID ticket generation and digital license entitlement protocols. |
+| 31 | **chacha** | [WitherOrNot/chacha](https://github.com/WitherOrNot/chacha) | Batch | Research into domain-independent volume licensing mechanisms on Windows. |
+| 32 | **ohook** | [WitherOrNot/ohook](https://github.com/WitherOrNot/ohook) | C / Assembly | Universal Software Protection Platform (SPP) DLL proxy intercepting licensing COM queries locally. |
+| 33 | **mpclient** | [WitherOrNot/mpclient](https://github.com/WitherOrNot/mpclient) | C | Native standalone C executable calling Microsoft Defender `mpengine.dll` directly for headless scanning. |
+| 34 | **gplayapi** | [WitherOrNot/gplayapi](https://github.com/WitherOrNot/gplayapi) | Python | Headless client communicating with Google Play Store API endpoints to download original APKs. |
+| 35 | **qemui** | [WitherOrNot/qemui](https://github.com/WitherOrNot/qemui) | C# / WPF | Modern, high-performance desktop graphical frontend for QEMU hardware virtual machines. |
+| 36 | **ntfstool** | [WitherOrNot/ntfstool](https://github.com/WitherOrNot/ntfstool) | C / Python | Low-level NTFS forensics utility parsing Master File Table ($MFT) records and BitLocker structures. |
+| 37 | **cdecrypt** | [WitherOrNot/cdecrypt](https://github.com/WitherOrNot/cdecrypt) | C | High-speed decrypter for Nintendo Wii U encrypted NUS title archives. |
+| 38 | **fgtemplate** | [WitherOrNot/fgtemplate](https://github.com/WitherOrNot/fgtemplate) | C / Assembly | Payload template for the Nvidia Tegra X1 Fusée Gelée coldboot recovery-mode exploit on Nintendo Switch. |
+| 39 | **chunithm-vcontroller** | [WitherOrNot/chunithm-vcontroller](https://github.com/WitherOrNot/chunithm-vcontroller) | C# | Low-latency virtual arcade controller mapping multi-touch touchscreen inputs to gamepad events. |
+| 40 | **wiiqt** | [WitherOrNot/wiiqt](https://github.com/WitherOrNot/wiiqt) | C++ / Qt | Graphical utility for managing Nintendo Wii NAND backups and disc image structures. |
+| 41 | **genuine-kms-server** | [WitherOrNot/...](https://github.com/WitherOrNot/how-to-enable-a-genuine-kms-server-with-a-blocked-csvlk) | Docs | Technical write-up on KMS protocol emulation and resolving blocked CSVLK host keys. |
+
+---
+
+## 🏠 Category 3: Homelab, Media Automation & *arr Stack (stevietv)
+
+| # | Project Name | Upstream Repository | Tech Stack | Primary Capabilities & Engineering Utility |
+|---|-------------|---------------------|------------|--------------------------------------------|
+| 42 | **Sonarr (Contrib)** | [stevietv/Sonarr](https://github.com/stevietv/Sonarr) | C# / .NET | Automated TV episode tracking and PVR integration with BitTorrent and Usenet downloaders. |
+| 43 | **Radarr (Contrib)** | [stevietv/Radarr](https://github.com/stevietv/Radarr) | C# / .NET | Automated movie library management, release monitoring, and metadata scraper. |
+| 44 | **Prowlarr (Contrib)** | [stevietv/Prowlarr](https://github.com/stevietv/Prowlarr) | C# / .NET | Centralized indexer proxy manager syncing tracker configurations across Sonarr, Radarr, and Lidarr. |
+| 45 | **Flemmarr** | [stevietv/Flemmarr](https://github.com/stevietv/Flemmarr) | Python / Docker | Declarative configuration-as-code automation applying YAML configuration files to *arr applications. |
+| 46 | **PlexTraktSync** | [stevietv/PlexTraktSync](https://github.com/stevietv/PlexTraktSync) | Python | Bidirectional sync engine keeping local Plex watch history, progress, and ratings synchronized with Trakt.tv. |
+| 47 | **PlexPreferNonForcedSubs** | [stevietv/PlexPreferNonForcedSubs](https://github.com/stevietv/PlexPreferNonForcedSubs) | Python | Script automating bulk subtitle language selection and non-forced audio track preference across Plex libraries. |
+| 48 | **homepage** | [stevietv/homepage](https://github.com/stevietv/homepage) | JavaScript / React | Highly customizable self-hosted service dashboard displaying Docker containers and homelab widgets. |
+| 49 | **docker-speedtest-analyser** | [stevietv/docker-speedtest-analyser](https://github.com/stevietv/docker-speedtest-analyser) | PHP / JS | Automated network speedtest runner generating daily and weekly ISP latency and bandwidth charts. |
+| 50 | **hyundai_kia_connect_api** | [stevietv/hyundai_kia_connect_api](https://github.com/stevietv/hyundai_kia_connect_api) | Python | Reverse-engineered telematics API client for Hyundai Bluelink and Kia UVO connected vehicle services. |

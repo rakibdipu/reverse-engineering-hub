@@ -1,15 +1,50 @@
-# ✨ Project 06: EffectCraft — Adobe After Effects বিকল্প\n\n> **Rust + WebGPU দিয়ে তৈরি ওপেন-সোর্স Motion Graphics & VFX Compositor**\n
+# ✨ Project 06: EffectCraft — Open-Source After Effects Alternative
+
+> **Node-Based Motion Graphics & VFX Compositor with AEP RIFX Binary Chunk Parser & WGSL Shaders**
+
+[![Rust](https://img.shields.io/badge/Language-Rust-orange.svg)]()
+[![Inspiration](https://img.shields.io/badge/Inspired%20By-storytold%2Feffectcraft-blue.svg)](https://github.com/storytold/effectcraft)
+
 ---
 
 ## 👤 Upstream Creator & Attribution
-* **Original Author / Inspiration:** [@storytold (EffectCraft)](https://github.com/storytold/effectcraft)
+* **Original Author / Inspiration:** [@storytold](https://github.com/storytold/effectcraft)
 * **Upstream Repository:** [https://github.com/storytold/effectcraft](https://github.com/storytold/effectcraft)
-* **Credit & License:** All original architectural concepts belong to @storytold (EffectCraft). This repository provides an upgraded, documented, and runnable standalone implementation.
+* **Credit & License:** All original architectural concepts belong to @storytold. This repository provides an upgraded, documented, and runnable standalone implementation.
 
 ---
 
 ## 🚀 How We Made It Better / Merged Innovations
-- Includes complete runnable egui UI entrypoint with composition layer stack, timeline keyframes, and preview.\n- Reverse-engineered After Effects AEP (RIFX binary chunk) reader.\n- Keyframe easing engine with Newton-Raphson cubic-bezier solver and WGSL Gaussian blur compute shader.
+- Includes complete runnable `egui` desktop UI entrypoint with composition layer stack, timeline keyframes, and preview monitor.
+- Reverse-engineered Adobe After Effects AEP (RIFX binary chunk) reader.
+- Keyframe easing engine with Newton-Raphson cubic-bezier solver and WGSL Gaussian blur compute shader.
+- Complete `Cargo.toml` with release optimization profiles.
 
 ---
-\n\n[![Reference](https://img.shields.io/badge/Inspired%20By-storytold%2Feffectcraft-blue)](https://github.com/storytold/effectcraft)\n\n---\n\n## 📖 কী এটা?\n\n**EffectCraft** হলো Adobe After Effects-এর একটি বিকল্প, যা:\n- **Node-based compositing** সাপোর্ট করে\n- **Keyframe animation** ও **easing** সমর্থন করে\n- Adobe AEP (After Effects Project) ফাইল রিড করে\n- GPU-accelerated effects processing\n\n---\n\n## 🔬 After Effects AEP Format — RE Analysis\n\nAfter Effects-এর `.aep` ফাইল হলো একটি **binary IFF-like format** (RIFX):\n\n```bash\n# AEP ফাইল header দেখুন\nxxd project.aep | head -20\n# 00000000: 5249 4658 xxxx xxxx 4146 5445 ...\n#           R I F X         A F T E ...\n# এটা RIFX (Big-endian RIFF) ফরম্যাট!\n```\n\n### AEP RIFX Structure (Reverse Engineered)\n\n```\nRIFX Chunk Structure:\n┌─────────────────────────────────────┐\n│ FourCC (4 bytes): "RIFX"           │\n│ Size (4 bytes, big-endian)          │\n│ Form Type (4 bytes): "AFTE"        │\n├─────────────────────────────────────┤\n│ Nested Chunks:                      │\n│                                     │\n│ ┌─────────────────────────────────┐ │\n│ │ "LIST" chunk                    │ │\n│ │   Type: "Item" (Project items)  │ │\n│ │   Sub-chunks:                   │ │\n│ │     "idta" — Item data          │ │\n│ │     "Utf8" — Item name (UTF-8)  │ │\n│ └─────────────────────────────────┘ │\n│                                     │\n│ ┌─────────────────────────────────┐ │\n│ │ "Layr" chunk (Layer data)       │ │\n│ │   "ldta" — Layer timing data    │ │\n│ │   "GCst" — Layer group          │ │\n│ │   "KFld" — Keyframe data        │ │\n│ └─────────────────────────────────┘ │\n└─────────────────────────────────────┘\n```\n\n---\n\n## 🦀 Rust Implementation\n\n```rust\n// src/formats/aep.rs — After Effects RIFX reader\n\nuse std::io::{Read, Seek, SeekFrom};\n\n/// RIFX chunk\n#[derive(Debug)]\npub struct RifxChunk {\n    pub fourcc: [u8; 4],\n    pub size: u32,\n    pub data: Vec<u8>,\n}\n\n/// AEP Layer (After Effects layer)\n#[derive(Debug, Clone)]\npub struct AepLayer {\n    pub name: String,\n    pub layer_type: LayerType,\n    pub in_point: f64,      // seconds\n    pub out_point: f64,     // seconds\n    pub start_time: f64,\n    pub transform: Transform,\n    pub keyframes: Vec<Keyframe>,\n    pub effects: Vec<Effect>,\n    pub blend_mode: BlendMode,\n    pub opacity: f32,\n    pub visible: bool,\n    pub solo: bool,\n}\n\n#[derive(Debug, Clone)]\npub enum LayerType {\n    Null,\n    Solid { color: [f32; 3], width: u32, height: u32 },\n    Shape,\n    Text,\n    Camera,\n    Light,\n    Footage(String),  // ফাইল পাথ\n    Composition(u32), // composition ID\n}\n\n/// Transform properties\n#[derive(Debug, Clone)]\npub struct Transform {\n    pub position: AnimatedVec3,\n    pub scale: AnimatedVec3,\n    pub rotation: AnimatedF32,\n    pub anchor_point: AnimatedVec3,\n    pub opacity: AnimatedF32,\n}\n\n/// Animated value (keyframes সহ)\n#[derive(Debug, Clone)]\npub struct AnimatedF32 {\n    pub static_value: f32,\n    pub keyframes: Vec<Keyframe>,\n}\n\nimpl AnimatedF32 {\n    /// একটি নির্দিষ্ট সময়ে মান বের করো (interpolate)\n    pub fn value_at(&self, time: f64) -> f32 {\n        if self.keyframes.is_empty() {\n            return self.static_value;\n        }\n\n        // সময় অনুযায়ী keyframe খোঁজো\n        let before = self.keyframes.iter()\n            .filter(|k| k.time <= time)\n            .last();\n        let after = self.keyframes.iter()\n            .find(|k| k.time > time);\n\n        match (before, after) {\n            (Some(b), Some(a)) => {\n                let t = (time - b.time) / (a.time - b.time);\n                let t = apply_easing(t as f32, &b.easing);\n                b.value + (a.value - b.value) * t\n            }\n            (Some(b), None) => b.value,\n            (None, Some(a)) => a.value,\n            (None, None) => self.static_value,\n        }\n    }\n}\n\n/// Keyframe\n#[derive(Debug, Clone)]\npub struct Keyframe {\n    pub time: f64,\n    pub value: f32,\n    pub easing: EasingType,\n}\n\n#[derive(Debug, Clone)]\npub enum EasingType {\n    Linear,\n    EaseIn,\n    EaseOut,\n    EaseInOut,\n    Bezier { x1: f32, y1: f32, x2: f32, y2: f32 },\n}\n\n/// Easing function প্রয়োগ করো\npub fn apply_easing(t: f32, easing: &EasingType) -> f32 {\n    match easing {\n        EasingType::Linear => t,\n        EasingType::EaseIn => t * t,\n        EasingType::EaseOut => t * (2.0 - t),\n        EasingType::EaseInOut => {\n            if t < 0.5 { 2.0 * t * t }\n            else { -1.0 + (4.0 - 2.0 * t) * t }\n        },\n        EasingType::Bezier { x1, y1, x2, y2 } => {\n            // CSS cubic-bezier approximation\n            cubic_bezier_y(t, *x1, *y1, *x2, *y2)\n        }\n    }\n}\n\nfn cubic_bezier_y(t: f32, x1: f32, y1: f32, x2: f32, y2: f32) -> f32 {\n    // Newton-Raphson method দিয়ে bezier solve\n    let mut guess = t;\n    for _ in 0..8 {\n        let x = 3.0 * x1 * guess * (1.0-guess) * (1.0-guess)\n               + 3.0 * x2 * guess * guess * (1.0-guess)\n               + guess * guess * guess;\n        let dx = 3.0 * x1 * (1.0-guess) * (1.0-2.0*guess)\n                + 3.0 * x2 * guess * (2.0-3.0*guess)\n                + 3.0 * guess * guess;\n        guess -= (x - t) / dx;\n    }\n    3.0 * y1 * guess * (1.0-guess) * (1.0-guess)\n    + 3.0 * y2 * guess * guess * (1.0-guess)\n    + guess * guess * guess\n}\n```\n\n---\n\n## 🎨 Effect System (GPU Shader-Based)\n\n```wgsl\n// shaders/blur.wgsl — Gaussian Blur effect (WGSL WebGPU shader)\n\n@group(0) @binding(0) var input_texture: texture_2d<f32>;\n@group(0) @binding(1) var output_texture: texture_storage_2d<rgba8unorm, write>;\n@group(0) @binding(2) var<uniform> params: BlurParams;\n\nstruct BlurParams {\n    radius: f32,\n    sigma: f32,\n}\n\n/// Gaussian weight বের করো\nfn gaussian(x: f32, sigma: f32) -> f32 {\n    let TWO_PI: f32 = 6.28318;\n    return exp(-0.5 * (x/sigma) * (x/sigma)) / (sigma * sqrt(TWO_PI));\n}\n\n@compute @workgroup_size(16, 16)\nfn main(@builtin(global_invocation_id) gid: vec3<u32>) {\n    let coord = vec2<i32>(gid.xy);\n    let dims = textureDimensions(input_texture);\n\n    if coord.x >= i32(dims.x) || coord.y >= i32(dims.y) {\n        return;\n    }\n\n    var color = vec4<f32>(0.0);\n    var weight_sum: f32 = 0.0;\n    let radius = i32(params.radius);\n\n    // Horizontal blur\n    for (var x: i32 = -radius; x <= radius; x++) {\n        let sample_coord = coord + vec2<i32>(x, 0);\n        let clamped = clamp(sample_coord, vec2<i32>(0), vec2<i32>(dims) - 1);\n        let w = gaussian(f32(x), params.sigma);\n        color += textureLoad(input_texture, clamped, 0) * w;\n        weight_sum += w;\n    }\n\n    textureStore(output_texture, coord, color / weight_sum);\n}\n```\n\n---\n\n## 📁 প্রজেক্ট স্ট্রাকচার\n\n```\n06-aftereffects-alternative/\n├── Cargo.toml\n├── src/\n│   ├── main.rs\n│   ├── formats/\n│   │   └── aep.rs         # After Effects RIFX reader\n│   ├── composition/\n│   │   ├── layer.rs       # Layer system\n│   │   ├── keyframe.rs    # Keyframe animation\n│   │   └── render.rs      # Composition renderer\n│   ├── effects/\n│   │   ├── blur.rs        # Blur effects\n│   │   ├── color.rs       # Color correction\n│   │   └── distort.rs     # Distortion effects\n│   ├── shaders/\n│   │   ├── blur.wgsl      # GPU blur shader\n│   │   └── composite.wgsl # Compositing shader\n│   └── ui/\n│       ├── timeline.rs    # Animation timeline\n│       └── effects_panel.rs\n```\n\n---\n\n## 📚 রিসোর্স\n\n- [wgpu Rust WebGPU](https://wgpu.rs/)\n- [Natron (Open Source AE Alternative)](https://github.com/NatronGitHub/Natron)\n- [storytold/effectcraft Reference](https://github.com/storytold/effectcraft)\n- [After Effects SDK Documentation](https://ae-plugins.docsforadobe.dev/)
+
+## 🔬 After Effects AEP Format Analysis
+
+After Effects project files (`.aep`) use the big-endian RIFF (`RIFX`) binary chunk container with Form Type `AFTE`.
+
+```
+RIFX Chunk Structure:
+┌─────────────────────────────────────┐
+│ FourCC (4 bytes): "RIFX"           │
+│ Size (4 bytes, big-endian)          │
+│ Form Type (4 bytes): "AFTE"        │
+├─────────────────────────────────────┤
+│ Nested Chunks:                      │
+│   LIST -> Item (Project media items)│
+│   Layr -> Layer timing & transforms │
+│   KFld -> Keyframe animation data   │
+└─────────────────────────────────────┘
+```
+
+---
+
+## 🚀 Building & Running
+
+```bash
+cargo build --release
+cargo run --release
+```
