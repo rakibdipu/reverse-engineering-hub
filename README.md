@@ -20,6 +20,22 @@
 
 ---
 
+## 🌟 মূল স্রষ্টাদের স্বীকৃতি ও অবদান (Upstream Creators Hall of Fame)
+
+এই প্রকল্পের প্রতিটি একক উপাদান বিশ্বের সেরা কিছু রিভার্স-ইঞ্জিনিয়ার এবং ওপেন-সোর্স ডেভেলপারদের উদ্ভাবনের ওপর প্রতিষ্ঠিত। আমরা তাদের প্রতি গভীর শ্রদ্ধা, কৃতজ্ঞতা ও পূর্ণ স্বীকৃতি (Full Attribution) প্রদান করছি:
+
+| স্রষ্টা ও গিটহাব | প্রধান উদ্ভাবনসমূহ | আমরা কীভাবে আরও উন্নত ও মার্জ করেছি |
+|---|---|---|
+| **[@yuliskov](https://github.com/yuliskov)** | [SmartTube](https://github.com/yuliskov/SmartTube), MediaServiceCore, LeanKeyboard, PoTokenService | অ্যান্ড্রয়েড এসডিকে-এর ওপর নির্ভরতা কমিয়ে স্ট্যান্ডঅ্যালোন পাইথন/হেডলেস মডিউলে রূপান্তর করা হয়েছে; টিভি স্ট্রিমিং ও লোকাল প্লেক্স অটোমেশনকে `OmniStream TV`-তে মার্জ করা হয়েছে। |
+| **[@WitherOrNot](https://github.com/WitherOrNot)** | [XenonRecomp](https://github.com/WitherOrNot/XenonRecomp-XEO3), StartXBack, Warbird Docs, cbsexploder, uupget, mpclient | বিভিন্ন বিচ্ছিন্ন টুলস (gplayapi, uupget, mpclient) একত্রিত করে সরাসরি ডিফেন্ডার স্ক্যানিং সহ একটি স্বয়ংক্রিয় `Zero-API App Pipeline` গঠন করা হয়েছে। |
+| **[@stevietv](https://github.com/stevietv)** | [PlexTraktSync](https://github.com/stevietv/PlexTraktSync), Sonarr, Radarr, Flemmarr, homepage | সমস্ত *arr মিডিয়া অটোমেশন এবং প্লেক্স সিঙ্ককে কনফিগারেশন-অ্যাজ-কোড ও ড্যাশবোর্ডের সাথে মার্জ করে `Unified Homelab Hub` তৈরি করা হয়েছে। |
+| **[@storytold](https://github.com/storytold)** | [PhotoCraft](https://github.com/storytold/photocraft), VectorCraft, FilmCraft, LightCraft, EffectCraft | অ্যাডোবি ফাইলের বাইনারি ফরম্যাট (PSD, AI, PRPROJ, LRCAT, AEP) রিভার্স ইঞ্জিনিয়ারিং বিশ্লেষণ এবং বিশুদ্ধ রাস্টে সম্পূর্ণ `Cargo.toml` ও `egui` রানটাইম সোর্স যুক্ত করা হয়েছে। |
+| **[@morluto](https://github.com/morluto)** | [REA Tool](https://github.com/morluto/rea) (Reverse Engineer Anything) | Claude Code এবং Cursor AI এজেন্টের জন্য একটি স্ট্যান্ডঅ্যালোন পাইথন MCP সার্ভার, সরাসরি গিডরা ও আইডা প্রো ইন্টারফেস সহ তৈরি করা হয়েছে। |
+
+---
+
+---
+
 ## 🗂️ সম্পূর্ণ প্রজেক্ট স্ট্রাকচার (Repository Structure)
 
 ```

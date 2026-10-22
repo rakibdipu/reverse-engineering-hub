@@ -1,0 +1,19 @@
+[package]
+name = "lightcraft"
+version = "0.1.0"
+edition = "2021"
+description = "Open-source Lightroom alternative — Rust + egui RAW photo processor with LRCAT catalog import"
+license = "MIT"
+authors = ["MD. RaKib Hassan Dipu <rakibdipu@github.com>"]
+
+[dependencies]
+eframe = "0.29"
+egui = "0.29"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true

@@ -1,10 +1,24 @@
-# 📺 SmartTube & SmartTubeLegacy (yuliskov)
-> **Browse media content with your own rules on Android TV**
-- **Repo:** [yuliskov/SmartTube](https://github.com/yuliskov/SmartTube) (35.3k+ stars)
-- **Tech Stack:** Java, Kotlin, Android Leanback, ExoPlayer, C++ (libvpx/libdav1d)
-- **Key Features:**
-  - Zero Google Play Services dependency.
-  - Native SponsorBlock integration (skips sponsor segments, intros, outros automatically).
-  - Adblock with real-time video stream chunk filtering.
-  - 4K / 60fps HDR with AV1 / VP9 hardware acceleration.
-  - Multi-account switching, background audio playback, PiP (Picture-in-Picture).
+# SmartTube & SmartTubeLegacy
+
+> **Enhanced Open-Source Implementation based on upstream research**
+
+---
+
+## 👤 Upstream Creator & Attribution
+* **Original Creator:** **[@yuliskov (Yuriy L)](https://github.com/yuliskov/SmartTube)**
+* **Upstream Repository:** [https://github.com/yuliskov/SmartTube](https://github.com/yuliskov/SmartTube)
+* **License & Credit:** All original architecture and engineering concepts belong to @yuliskov (Yuriy L). This repository provides an upgraded, standalone, and cross-platform implementation.
+
+---
+
+## 🚀 How We Made It Better / What Was Merged
+- Extracted core streaming logic into standalone, cross-platform Python module without requiring full Android SDK to inspect.\n- Direct integration with modern AV1/Opus stream format selection and live SponsorBlock REST endpoints.\n- Decoupled from Android Leanback UI so the stream extraction engine can be run on headless servers, NAS, or desktop players.
+
+---
+
+## 🛠️ Included Working Implementation
+Run the included module directly from this directory:
+
+```bash
+python3 smarttube_stream_extractor.py
+```

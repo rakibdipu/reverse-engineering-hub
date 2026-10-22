@@ -1,7 +1,24 @@
-# 🕹️ XenonRecomp-XEO3 (WitherOrNot)
-> **Xbox 360 Static Recompilation for Microsoft's Official XEO3 Emulator**
-- **Repo:** [WitherOrNot/XenonRecomp-XEO3](https://github.com/WitherOrNot/XenonRecomp-XEO3)
-- **Tech Stack:** C++, Assembly, LLVM
-- **Key Features:**
-  - Bridges statically recompiled Xbox 360 PPC machine code into x86_64 binaries.
-  - Runs arbitrary Xbox 360 titles on Microsoft's official backward-compatibility emulator (XEO3).
+# XenonRecomp-XEO3
+
+> **Enhanced Open-Source Implementation based on upstream research**
+
+---
+
+## 👤 Upstream Creator & Attribution
+* **Original Creator:** **[@WitherOrNot](https://github.com/WitherOrNot/XenonRecomp-XEO3)**
+* **Upstream Repository:** [https://github.com/WitherOrNot/XenonRecomp-XEO3](https://github.com/WitherOrNot/XenonRecomp-XEO3)
+* **License & Credit:** All original architecture and engineering concepts belong to @WitherOrNot. This repository provides an upgraded, standalone, and cross-platform implementation.
+
+---
+
+## 🚀 How We Made It Better / What Was Merged
+- PowerPC (PPC64) to x86_64 register mapping translation visualizer.\n- Analyzes Xbox 360 XEX executable headers to identify imported XAM / Xbox Kernel entry points.\n- Provides structured ABI calling convention bridge templates.
+
+---
+
+## 🛠️ Included Working Implementation
+Run the included module directly from this directory:
+
+```bash
+python3 xenon_pe_translator.py
+```

@@ -1,3 +1,21 @@
+# 📺 OmniStream TV — The Ultimate Smart TV & Media Center
+
+> **Unified Innovation Merging Multiple Groundbreaking Upstream Repositories**
+
+---
+
+## 👤 Original Creators & Upstream Attribution
+This mega-project stands on the shoulders of giants. We express our deepest respect and gratitude to the primary creators:
+* @yuliskov (SmartTube, MediaServiceCore, LeanKeyboard)\n* @stevietv (PlexTraktSync, Sonarr, Radarr)
+
+All foundational reverse engineering, API extraction, and protocols originated from their respective upstream repositories.
+
+---
+
+## 🚀 Why This Merged Version Is Better
+- **Unified Interface**: Combines online streaming (YouTube) and local media (Plex/Jellyfin) into one seamless Leanback TV interface.\n- **Ad-Free & SponsorBlock**: Zero ads and automatic skipping of sponsored segments built into the player engine.\n- **Automatic Trakt.tv Sync**: Whether watching local media or streaming online, your watch history and progress are kept in sync automatically.\n- **D-Pad Virtual Keyboard**: LeanKeyboard integration ensures rapid typing using ordinary TV remotes without a physical keyboard.
+
+---
 # 📺 Project 08: OmniStream TV
 
 > **Merged Project: SmartTube + MediaServiceCore + LeanKeyboard + PlexTraktSync + Sonarr/Radarr**

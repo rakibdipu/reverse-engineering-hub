@@ -1,3 +1,21 @@
+# ⚡ Zero-API Headless App & Media Pipeline
+
+> **Unified Innovation Merging Multiple Groundbreaking Upstream Repositories**
+
+---
+
+## 👤 Original Creators & Upstream Attribution
+This mega-project stands on the shoulders of giants. We express our deepest respect and gratitude to the primary creators:
+* @WitherOrNot (gplayapi, uupget, mpclient)\n* @yuliskov (PoTokenService)
+
+All foundational reverse engineering, API extraction, and protocols originated from their respective upstream repositories.
+
+---
+
+## 🚀 Why This Merged Version Is Better
+- **Zero Subscription Fees**: Completely avoids paid APIs by directly communicating with original endpoints (Play Store, Microsoft UUP, YouTube InnerTube).\n- **Instant Security Audit**: Every downloaded APK or Windows package is scanned on-the-fly using the native Microsoft Defender engine (mpengine.dll).\n- **Automated Bot Bypass**: Embedded PoToken generator prevents YouTube 403 Forbidden errors during automated media extraction.\n- **End-to-End Headless**: Can be deployed on headless Linux or Windows servers as an automated asset pipeline.
+
+---
 # ⚡ Project 09: Zero-API App & Media Pipeline
 
 > **Merged Project: gplayapi + uupget + mpclient + PoTokenService**
