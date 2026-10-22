@@ -1,0 +1,21 @@
+# ⚡ Project 09: Zero-API App & Media Pipeline
+
+> **Merged Project: gplayapi + uupget + mpclient + PoTokenService**
+
+## 📖 প্রজেক্ট ওভারভিউ
+কোনো অফিশিয়াল পেইড API সাবস্ক্রিপশন ছাড়াই হেডলেসভাবে অ্যান্ড্রয়েড অ্যাপ (.apk), উইন্ডোজ অফিশিয়াল আপডেট (.esd/.cab) এবং ইউটিউব মিডিয়া স্ট্রিম সংগ্রহ করে সরাসরি উইন্ডোজ ডিফেন্ডার দিয়ে ভাইরাস স্ক্যান করার পাইপলাইন।
+
+### 🧩 কোন প্রজেক্টগুলো মার্জ করা হয়েছে:
+1. **WitherOrNot/gplayapi**: গুগল প্লে স্টোর থেকে সরাসরি অরিজিনাল APK ডাউনলোড।
+2. **WitherOrNot/uupget**: মাইক্রোসফটের UUP সার্ভার থেকে সরাসরি উইন্ডোজ আপডেট ডাউনলোড।
+3. **WitherOrNot/mpclient**: উইন্ডোজ ডিফেন্ডারের ইঞ্জিন (`mpengine.dll`) দিয়ে তাৎক্ষণিক ভাইরাস স্ক্যান।
+4. **yuliskov/PoTokenService**: থ্রটলিং ছাড়া হাই-স্পিড ভিডিও স্ট্রিম ক্যাশিং।
+
+## 🏗️ ওয়ার্কফ্লো
+```
+[User Request] 
+      │
+      ├───► [gplayapi] ────► Download APK ────► [mpclient scan] ──► Verified Safe
+      ├───► [uupget]   ────► Download Windows CAB ──► [CBS Verify] ──► Ready
+      └───► [PoToken]  ────► YouTube Stream ──► High-speed Cache ──► Output
+```
