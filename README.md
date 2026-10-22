@@ -41,12 +41,17 @@ reverse-engineering-hub/
 | storytold | CraftApps Suite (Rust-based Creative Tools) | [GitHub](https://github.com/storytold) |
 
 ---
+## 📸 প্রিভিউ (Preview)
+
+![GitHub Repository Preview](screenshots/github_repo.png)
+
+---
 
 ## 🚀 দ্রুত শুরু করুন
 
 ```bash
 # রিপো ক্লোন করুন
-git clone https://github.com/your-username/reverse-engineering-hub
+git clone https://github.com/rakibdipu/reverse-engineering-hub.git
 cd reverse-engineering-hub
 
 # যেকোনো প্রজেক্টে যান
