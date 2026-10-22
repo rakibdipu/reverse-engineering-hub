@@ -1,0 +1,46 @@
+name: Reverse Engineering Hub
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-python:
+    name: Check Python Code (REA Tool)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install flake8
+      - name: Lint
+        run: flake8 01-REA-tool/ --max-line-length=120 --ignore=E501
+
+  check-rust:
+    name: Check Rust Code (Craft Apps)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:
+          - 02-photoshop-alternative
+          - 03-illustrator-alternative
+          - 04-premiere-alternative
+          - 05-lightroom-alternative
+          - 06-aftereffects-alternative
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Check if Cargo.toml exists
+        id: check_cargo
+        run: |
+          if [ -f "${{ matrix.project }}/Cargo.toml" ]; then
+            echo "has_cargo=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_cargo=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Cargo check
+        if: steps.check_cargo.outputs.has_cargo == 'true'
+        run: cargo check
+        working-directory: ${{ matrix.project }}
